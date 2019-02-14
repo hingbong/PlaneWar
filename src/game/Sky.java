@@ -10,7 +10,6 @@ public class Sky {
 
 	public Sky() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Sky(int x, int y, int y1, int width, int height, int speed) {

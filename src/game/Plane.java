@@ -9,7 +9,6 @@ public class Plane {
 
 	public Plane() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Plane(int x, int y, int width, int height, int speed) {

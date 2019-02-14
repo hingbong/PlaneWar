@@ -9,7 +9,6 @@ public class Bullet {
 
 	public Bullet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Bullet(int x, int y, int width, int height, int speed) {

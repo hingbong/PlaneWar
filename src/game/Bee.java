@@ -11,7 +11,6 @@ public class Bee {
 
 	public Bee() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Bee(int x, int y, int width, int height, int xSpeed, int ySpeed, int rewardType) {
