@@ -8,6 +8,16 @@ public class Hero {
 	public int life;
 	public int doubleFire;
 
+	public Hero() {
+		super();
+		this.width = 97;
+		this.height = 124;
+		this.x = 200 - this.width / 2;
+		this.y = 500;
+		this.life = 3;// at the begin,there is 3 lives
+		this.doubleFire = 0;// at the begin,there is single bullet
+	}
+
 	public void show() {
 		System.out.println("x:" + this.x);
 		System.out.println("y:" + this.y);

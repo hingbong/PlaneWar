@@ -1,6 +1,6 @@
 package game;
 
-public class Plane {
+public abstract class Plane {
 	public int x;
 	public int y;
 	public int width;
@@ -9,15 +9,7 @@ public class Plane {
 
 	public Plane() {
 		super();
-	}
-
-	public Plane(int x, int y, int width, int height, int speed) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
+		this.speed = 2;
 	}
 
 	public void show() {

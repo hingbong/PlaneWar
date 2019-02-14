@@ -10,16 +10,12 @@ public class Sky {
 
 	public Sky() {
 		super();
-	}
-
-	public Sky(int x, int y, int y1, int width, int height, int speed) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.y1 = y1;
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
+		this.width = 400;
+		this.height = 700;
+		this.x = 0;
+		this.y = 0;
+		this.y1 = -this.height;
+		this.speed = 1;
 	}
 
 	public void show() {

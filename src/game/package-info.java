@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author soft01
+ * @author Hingbong
  *
  */
 package game;

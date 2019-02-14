@@ -11,17 +11,13 @@ public class Bee {
 
 	public Bee() {
 		super();
-	}
-
-	public Bee(int x, int y, int width, int height, int xSpeed, int ySpeed, int rewardType) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.xSpeed = xSpeed;
-		this.ySpeed = ySpeed;
-		this.rewardType = rewardType;
+		this.width = 60;
+		this.height = 50;
+		this.y = -this.height;
+		this.x = (int) (Math.random() * (400 - this.height + 1));
+		this.xSpeed = 1;
+		this.ySpeed = 2;
+		this.rewardType = (int) (Math.random() * 2);
 	}
 
 	public void show() {

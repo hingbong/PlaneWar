@@ -11,13 +11,14 @@ public class Bullet {
 		super();
 	}
 
-	public Bullet(int x, int y, int width, int height, int speed) {
+	public Bullet(int x, int y) {
 		super();
+		this.width = 8;
+		this.height = 14;
+		this.speed = 2;
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
+
 	}
 
 	public void show() {
