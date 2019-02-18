@@ -7,13 +7,13 @@ public class Bee extends FlyObject {
 
   public Bee() {
     super();
-    this.width = 60;
-    this.height = 50;
-    this.y = -this.height;
-    this.x = (int) (Math.random() * (400 - this.height + 1));
-    this.xSpeed = 1;
-    this.ySpeed = 2;
-    this.rewardType = (int) (Math.random() * 2);
+    width = 60;
+    height = 50;
+    y = -height;
+    x = (int) (Math.random() * (400 - height + 1));
+    xSpeed = 1;
+    ySpeed = 2;
+    rewardType = (int) (Math.random() * 2);
   }
 
 

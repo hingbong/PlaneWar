@@ -6,12 +6,12 @@ public class Hero extends FlyObject {
 
   public Hero() {
     super();
-    this.width = 97;
-    this.height = 124;
-    this.x = 200 - this.width / 2;
-    this.y = 500;
-    this.life = 3;// at the beginning of the game,there is 3 lives
-    this.doubleFire = 0;// at the beginning of the game,there is single bullet
+    width = 97;
+    height = 124;
+    x = 200 - this.width / 2;
+    y = 500;
+    life = 3;// at the beginning of the game,there is 3 lives
+    doubleFire = 0;// at the beginning of the game,there is single bullet
   }
 
   @Override

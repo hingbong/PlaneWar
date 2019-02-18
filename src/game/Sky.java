@@ -7,12 +7,12 @@ public class Sky extends FlyObject {
 
   private Sky() {
     super();
-    this.width = 400;
-    this.height = 700;
-    this.x = 0;
-    this.y = 0;
-    this.y1 = -this.height;
-    this.speed = 1;
+    width = 400;
+    height = 700;
+    x = 0;
+    y = 0;
+    y1 = -height;
+    speed = 1;
   }
 
 

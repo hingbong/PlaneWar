@@ -5,11 +5,11 @@ public class BigPlane extends FlyObject {
 
   public BigPlane() {
     super();
-    this.width = 69;
-    this.height = 99;
-    this.speed = 2;
-    this.y = -this.height;
-    this.x = (int) (Math.random() * (400 - this.height + 1));
+    width = 69;
+    height = 99;
+    speed = 2;
+    y = -height;
+    x = (int) (Math.random() * (400 - height + 1));
   }
 
   @Override
