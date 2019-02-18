@@ -16,6 +16,9 @@ public class Hero extends FlyObject {
         + life + ", doubleFire=" + doubleFire + "]";
   }
 
+  @Override
+  public void step() {}
+
 
 
 }

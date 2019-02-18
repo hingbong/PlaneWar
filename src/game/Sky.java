@@ -18,4 +18,8 @@ public class Sky extends FlyObject {
         + ", speed=" + speed + "]";
   }
 
+
+  @Override
+  public void step() {}
+
 }

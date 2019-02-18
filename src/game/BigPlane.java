@@ -14,5 +14,8 @@ public class BigPlane extends FlyObject {
         + speed + "]";
   }
 
+  @Override
+  public void step() {}
+
 
 }

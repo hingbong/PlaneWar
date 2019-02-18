@@ -20,5 +20,9 @@ public class Bee extends FlyObject {
   }
 
 
+  @Override
+  public void step() {}
+
+
 
 }

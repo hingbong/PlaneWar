@@ -27,6 +27,6 @@ public abstract class FlyObject {
     this.y = y;
   }
 
-  public void step() {}
+  public abstract void step();
 
 }

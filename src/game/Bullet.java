@@ -20,4 +20,7 @@ public class Bullet extends FlyObject {
         + speed + "]";
   }
 
+  @Override
+  public void step() {}
+
 }
