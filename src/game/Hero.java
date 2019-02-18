@@ -10,7 +10,7 @@ public class Hero extends FlyObject {
     height = 124;
     x = 200 - this.width / 2;
     y = 500;
-    life = 3;// at the beginning of the game,there is 3 lives
+    life = 3;// at the beginning of the game,there are 3 lives
     doubleFire = 0;// at the beginning of the game,there is single bullet
   }
 
