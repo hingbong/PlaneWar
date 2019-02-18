@@ -5,11 +5,7 @@ public class Hero extends FlyObject {
   public int doubleFire;
 
   public Hero() {
-    super();
-    width = 97;
-    height = 124;
-    x = 200 - this.width / 2;
-    y = 500;
+    super(200 - 97 / 2, 500, 97, 124);
     life = 3;// at the beginning of the game,there are 3 lives
     doubleFire = 0;// at the beginning of the game,there is single bullet
   }

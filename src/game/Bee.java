@@ -6,11 +6,7 @@ public class Bee extends FlyObject {
   public int rewardType;
 
   public Bee() {
-    super();
-    width = 60;
-    height = 50;
-    y = -height;
-    x = (int) (Math.random() * (400 - height + 1));
+    super(60, 50);
     xSpeed = 1;
     ySpeed = 2;
     rewardType = (int) (Math.random() * 2);

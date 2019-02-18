@@ -8,12 +8,8 @@ public class Bullet extends FlyObject {
   }
 
   public Bullet(int x, int y) {
-    super();
-    width = 8;
-    height = 14;
+    super(x, y, 8, 14);
     speed = 2;
-    this.x = x;
-    this.y = y;
 
   }
 

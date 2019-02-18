@@ -6,11 +6,7 @@ public class Sky extends FlyObject {
   public static Sky sky = new Sky();
 
   private Sky() {
-    super();
-    width = 400;
-    height = 700;
-    x = 0;
-    y = 0;
+    super(0, 0, 400, 700);
     y1 = -height;
     speed = 1;
   }

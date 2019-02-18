@@ -4,12 +4,8 @@ public class BigPlane extends FlyObject {
   int speed;
 
   public BigPlane() {
-    super();
-    width = 69;
-    height = 99;
+    super(69, 99);
     speed = 2;
-    y = -height;
-    x = (int) (Math.random() * (400 - height + 1));
   }
 
   @Override
