@@ -1,12 +1,6 @@
 package game;
 
-public class Bee {
-
-
-  public int x;
-  public int y;
-  public int width;
-  public int height;
+public class Bee extends FlyObject {
   public int xSpeed;
   public int ySpeed;
   public int rewardType;
@@ -22,13 +16,13 @@ public class Bee {
     this.rewardType = (int) (Math.random() * 2);
   }
 
-  public void step() {
-
-  }
 
   @Override
   public String toString() {
     return "Bee [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", xSpeed="
         + xSpeed + ", ySpeed=" + ySpeed + ", rewardType=" + rewardType + "]";
   }
+
+
+
 }

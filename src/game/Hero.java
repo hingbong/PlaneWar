@@ -1,10 +1,6 @@
 package game;
 
-public class Hero {
-  public int x;
-  public int y;
-  public int width;
-  public int height;
+public class Hero extends FlyObject {
   public int life;
   public int doubleFire;
 
@@ -18,14 +14,12 @@ public class Hero {
     this.doubleFire = 0;// at the beginning of the game,there is single bullet
   }
 
-  public void step() {
-
-  }
-
   @Override
   public String toString() {
     return "Hero [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", life="
         + life + ", doubleFire=" + doubleFire + "]";
   }
+
+
 
 }

@@ -1,10 +1,6 @@
 package game;
 
-public class Bullet {
-  public int x;
-  public int y;
-  public int width;
-  public int height;
+public class Bullet extends FlyObject {
   public int speed;
 
   public Bullet() {
@@ -21,13 +17,11 @@ public class Bullet {
 
   }
 
-  public void step() {
-
-  }
 
   @Override
   public String toString() {
     return "Bullet [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", speed="
         + speed + "]";
   }
+
 }

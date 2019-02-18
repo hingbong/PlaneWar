@@ -5,15 +5,9 @@ public abstract class FlyObject {
   public int y;
   public int width;
   public int height;
-  public int speed;
 
-  public FlyObject() {
-    super();
-    this.speed = 2;
-  }
+  public FlyObject() {}
 
-  public void step() {
-
-  }
+  public void step() {}
 
 }

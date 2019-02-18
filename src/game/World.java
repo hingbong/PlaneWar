@@ -3,13 +3,14 @@ package game;
 public class World {
   // the unit in the world
   Hero hero;
-  Sky sky;
+  Sky sky = Sky.sky;
   FlyObject[] airPlanes = new AirPlane[30];
   FlyObject[] bigPlanes = new BigPlane[30];
   Bee[] bees = new Bee[30];
   Bullet[] bullets = new Bullet[30];
 
   public void start() {
+    hero = new Hero();
     airPlanes[0] = new AirPlane();
     airPlanes[1] = new AirPlane();
     airPlanes[2] = new AirPlane();
