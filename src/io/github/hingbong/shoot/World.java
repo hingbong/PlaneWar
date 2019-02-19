@@ -3,11 +3,8 @@ package io.github.hingbong.shoot;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class World extends JPanel {
-  /**
-  * 
-  */
-  private static final long serialVersionUID = 1L;
   // the unit in the world
   Hero hero;
   Sky sky = Sky.sky;
