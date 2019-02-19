@@ -1,4 +1,4 @@
-package game;
+package io.github.hingbong.shoot;
 
 public class Sky extends FlyObject {
   public int y1;// two pictures loop

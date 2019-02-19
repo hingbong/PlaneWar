@@ -1,4 +1,4 @@
-package game;
+package io.github.hingbong.shoot;
 
 public class AirPlane extends FlyObject {
   int speed;

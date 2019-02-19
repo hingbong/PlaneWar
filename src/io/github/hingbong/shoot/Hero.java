@@ -1,4 +1,4 @@
-package game;
+package io.github.hingbong.shoot;
 
 public class Hero extends FlyObject {
   public int life;

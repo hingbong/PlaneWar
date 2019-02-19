@@ -5,4 +5,4 @@
  * @author Hingbong
  *
  */
-package game;
+package io.github.hingbong.shoot;

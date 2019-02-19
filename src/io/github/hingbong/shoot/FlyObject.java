@@ -1,4 +1,4 @@
-package game;
+package io.github.hingbong.shoot;
 
 public abstract class FlyObject {
   public int x;
