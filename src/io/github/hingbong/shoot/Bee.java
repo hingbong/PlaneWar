@@ -1,6 +1,15 @@
 package io.github.hingbong.shoot;
 
+import java.awt.image.BufferedImage;
+
 public class Bee extends FlyObject {
+  private static BufferedImage[] images;// image type array
+  static {
+    images = new BufferedImage[5];
+    for (int i = 0; i < images.length; i++) {
+      images[i] = loadImage("res/bee" + i + ".png");
+    }
+  }
   public int xSpeed;
   public int ySpeed;
   public int rewardType;

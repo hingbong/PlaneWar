@@ -7,7 +7,7 @@ public class AirPlane extends FlyObject {
   static {
     images = new BufferedImage[5];
     for (int i = 0; i < images.length; i++) {
-      images[i] = loadImage("airplane" + i + ".png");
+      images[i] = loadImage("res/airplane" + i + ".png");
     }
   }
   int speed;
