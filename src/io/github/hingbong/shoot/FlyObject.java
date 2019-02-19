@@ -1,5 +1,9 @@
 package io.github.hingbong.shoot;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public abstract class FlyObject {
   public int x;
   public int y;
@@ -29,4 +33,14 @@ public abstract class FlyObject {
 
   public abstract void step();
 
+  public static BufferedImage loadImage(String fileName) {// the method to load pictures
+    BufferedImage img;
+    try {
+      img = ImageIO.read(FlyObject.class.getResource(fileName)); // load files
+      return img;
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
 }

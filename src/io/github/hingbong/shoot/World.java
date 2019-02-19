@@ -26,10 +26,10 @@ public class World extends JPanel {
   }
 
   public static void main(String[] args) {
-    JFrame frame = new JFrame("FLY");// initialize the window
+    JFrame frame = new JFrame("Shoot Game");// initialize the window
     World w = new World();// run start method in main method
     frame.setSize(400, 700);// set the window size
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close option
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
     frame.setLocationRelativeTo(null);// window initialized location
     frame.setVisible(true);// display the window
     w.start();
