@@ -3,9 +3,9 @@ package io.github.hingbong.shoot;
 import java.awt.image.BufferedImage;
 
 public class Sky extends FlyObject {
-  private static BufferedImage images;// image type array
+  private static BufferedImage image;
   static {
-    images = loadImage("res/background.png");
+    image = loadImage("res/background.png");
   }
   public int y1;// two pictures loop
   public int speed;
@@ -27,5 +27,11 @@ public class Sky extends FlyObject {
 
   @Override
   public void step() {}
+
+
+  @Override
+  public BufferedImage getImage() {
+    return image;
+  }
 
 }

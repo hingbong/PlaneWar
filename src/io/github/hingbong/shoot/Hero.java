@@ -28,6 +28,18 @@ public class Hero extends FlyObject {
   @Override
   public void step() {}
 
+  public boolean isDoubleFire() {
+    return doubleFire == 1;
+  }
 
+  int index = 0;
 
+  @Override
+  public BufferedImage getImage() {
+    if (index == 0) {
+      return images[index++];
+    } else {
+      return images[index--];
+    }
+  }
 }
