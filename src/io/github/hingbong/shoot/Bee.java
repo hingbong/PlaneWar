@@ -32,6 +32,19 @@ public class Bee extends FlyObject {
   @Override
   public void step() {}
 
+  int index = 1;
 
-
+  @Override
+  public BufferedImage getImage() {
+    if (isLife()) {
+      return images[0];
+    } else if (isDead()) {
+      if (index == images.length - 1) {
+        this.state = REMOVE;
+      }
+      return images[index++];
+    } else {
+      return null;
+    }
+  }
 }
