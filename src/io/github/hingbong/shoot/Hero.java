@@ -1,6 +1,15 @@
 package io.github.hingbong.shoot;
 
+import java.awt.image.BufferedImage;
+
 public class Hero extends FlyObject {
+  private static BufferedImage[] images;// image type array
+  static {
+    images = new BufferedImage[2];
+    for (int i = 0; i < images.length; i++) {
+      images[i] = loadImage("res/hero" + i + ".png");
+    }
+  }
   public int life;
   public int doubleFire;
 

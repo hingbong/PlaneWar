@@ -1,6 +1,12 @@
 package io.github.hingbong.shoot;
 
+import java.awt.image.BufferedImage;
+
 public class Sky extends FlyObject {
+  private static BufferedImage images;// image type array
+  static {
+    images = loadImage("res/background.png");
+  }
   public int y1;// two pictures loop
   public int speed;
   public static Sky sky = new Sky();
