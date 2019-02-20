@@ -41,6 +41,8 @@ public abstract class FlyObject {
 
   public abstract void step();
 
+  public abstract BufferedImage getImage();
+
   public static BufferedImage loadImage(String fileName) {// the method to load pictures
     BufferedImage img;
     try {
