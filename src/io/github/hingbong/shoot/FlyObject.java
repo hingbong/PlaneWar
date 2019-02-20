@@ -5,10 +5,18 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class FlyObject {
-  public int x;
-  public int y;
-  public int width;
-  public int height;
+  // three state
+  public static final int LIFE = 0;
+  public static final int DEAD = 1;
+  public static final int REMOVE = 2;
+
+  // current object state
+  protected int state = LIFE;
+
+  protected int x;
+  protected int y;
+  protected int width;
+  protected int height;
 
   public FlyObject() {}
 
