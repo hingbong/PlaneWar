@@ -12,7 +12,6 @@ public abstract class FlyObject {
 
   // current object state
   protected int state = LIFE;
-
   protected int x;
   protected int y;
   protected int width;
@@ -40,6 +39,19 @@ public abstract class FlyObject {
   }
 
   public abstract void step();
+
+  // get state
+  public boolean isLife() {
+    return state==LIFE;
+  }
+  
+  public boolean isDead() {
+    return state==DEAD;
+  }
+  
+  public boolean isRemove() {
+    return state==REMOVE;
+  }
 
   public abstract BufferedImage getImage();
 
