@@ -1,5 +1,6 @@
 package io.github.hingbong.shoot;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -42,15 +43,20 @@ public abstract class FlyObject {
 
   // get state
   public boolean isLife() {
-    return state==LIFE;
+    return state == LIFE;
   }
-  
+
   public boolean isDead() {
-    return state==DEAD;
+    return state == DEAD;
   }
-  
+
   public boolean isRemove() {
-    return state==REMOVE;
+    return state == REMOVE;
+  }
+
+  // add object picture to panel
+  public void paintObject(Graphics g) {
+    g.drawImage(getImage(), x, y, null);
   }
 
   public abstract BufferedImage getImage();
