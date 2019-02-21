@@ -7,7 +7,7 @@ public class Bullet extends FlyObject {
   static {
     image = loadImage("res/bullet.png");
   }
-  public int speed;
+  private int speed;
 
   public Bullet() {
     super();

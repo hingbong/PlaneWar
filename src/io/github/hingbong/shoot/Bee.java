@@ -10,9 +10,9 @@ public class Bee extends FlyObject {
       images[i] = loadImage("res/bee" + i + ".png");
     }
   }
-  public int xSpeed;
-  public int ySpeed;
-  public int rewardType;
+  private int xSpeed;
+  private int ySpeed;
+  private int rewardType;
 
   public Bee() {
     super(60, 50);

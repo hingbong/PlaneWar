@@ -7,9 +7,9 @@ public class Sky extends FlyObject {
   static {
     image = loadImage("res/background.png");
   }
-  public int y1;// two pictures loop
-  public int speed;
-  public static Sky sky = new Sky();
+  private int y1;// two pictures loop
+  private int speed;
+  static Sky sky = new Sky();
 
   private Sky() {
     super(0, 0, 400, 700);

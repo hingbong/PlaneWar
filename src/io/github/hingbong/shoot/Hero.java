@@ -10,8 +10,8 @@ public class Hero extends FlyObject {
       images[i] = loadImage("res/hero" + i + ".png");
     }
   }
-  public int life;
-  public int doubleFire;
+  private int life;
+  private int doubleFire;
 
   public Hero() {
     super(200 - 97 / 2, 500, 97, 124);

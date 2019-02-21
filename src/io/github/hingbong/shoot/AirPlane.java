@@ -10,7 +10,7 @@ public class AirPlane extends FlyObject {
       images[i] = loadImage("res/airplane" + i + ".png");
     }
   }
-  int speed;
+  private int speed;
 
   public AirPlane() {
     super(49, 36);
