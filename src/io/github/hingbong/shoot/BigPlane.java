@@ -18,12 +18,6 @@ public class BigPlane extends FlyObject {
   }
 
   @Override
-  public String toString() {
-    return "BigPlane [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", speed="
-        + speed + "]";
-  }
-
-  @Override
   public void step() {}
 
   int index = 1;

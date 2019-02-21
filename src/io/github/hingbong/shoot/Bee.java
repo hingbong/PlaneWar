@@ -21,14 +21,6 @@ public class Bee extends FlyObject {
     rewardType = (int) (Math.random() * 2);
   }
 
-
-  @Override
-  public String toString() {
-    return "Bee [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", xSpeed="
-        + xSpeed + ", ySpeed=" + ySpeed + ", rewardType=" + rewardType + "]";
-  }
-
-
   @Override
   public void step() {}
 

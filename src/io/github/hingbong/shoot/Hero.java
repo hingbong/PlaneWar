@@ -20,12 +20,6 @@ public class Hero extends FlyObject {
   }
 
   @Override
-  public String toString() {
-    return "Hero [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", life="
-        + life + ", doubleFire=" + doubleFire + "]";
-  }
-
-  @Override
   public void step() {}
 
   public boolean isDoubleFire() {
@@ -36,10 +30,6 @@ public class Hero extends FlyObject {
 
   @Override
   public BufferedImage getImage() {
-    if (index == 0) {
-      return images[index++];
-    } else {
-      return images[index--];
-    }
+    return images[index++ % images.length];
   }
 }

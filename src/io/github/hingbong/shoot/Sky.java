@@ -17,14 +17,6 @@ public class Sky extends FlyObject {
     speed = 1;
   }
 
-
-  @Override
-  public String toString() {
-    return "Sky [x=" + x + ", y=" + y + ", y1=" + y1 + ", width=" + width + ", height=" + height
-        + ", speed=" + speed + "]";
-  }
-
-
   @Override
   public void step() {}
 
