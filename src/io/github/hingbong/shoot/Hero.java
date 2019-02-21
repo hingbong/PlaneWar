@@ -12,8 +12,9 @@ public class Hero extends FlyObject {
   }
   private int life;
   private int doubleFire;
+  static Hero hero = new Hero();
 
-  public Hero() {
+  private Hero() {
     super(200 - 97 / 2, 500, 97, 124);
     life = 3;// at the beginning of the game,there are 3 lives
     doubleFire = 0;// at the beginning of the game,there is single bullet
