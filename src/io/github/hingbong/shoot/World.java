@@ -1,6 +1,8 @@
 package io.github.hingbong.shoot;
 
 import java.awt.Graphics;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -20,6 +22,18 @@ public class World extends JPanel {
     flies[1] = new Bee();
     flies[2] = new BigPlane();
     bullet[0] = new Bullet(120, 350);
+    // set a timer
+    Timer timer = new Timer();
+    // set interval
+    int interval = 10;// the bigger value, the slower speed
+    TimerTask task = new TimerTask() {
+
+      @Override
+      public void run() {
+        
+      }
+    };
+    timer.schedule(task, interval, interval);
   }
 
   @Override
