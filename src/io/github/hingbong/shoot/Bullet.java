@@ -23,7 +23,12 @@ public class Bullet extends FlyObject {
 
   @Override
   public BufferedImage getImage() {
-    return image;
+    if (isLife())
+      return image;
+    else {
+      state = REMOVE;
+      return null;
+    }
   }
 
 }
