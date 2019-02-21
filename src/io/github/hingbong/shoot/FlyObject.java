@@ -26,7 +26,7 @@ public abstract class FlyObject {
     this.width = width;
     this.height = height;
     y = -height;
-    x = (int) (Math.random() * (400 - height + 1));
+    x = (int) (Math.random() * (World.WIDTH - height + 1));
   }
 
 

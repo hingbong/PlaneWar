@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class World extends JPanel {
+  public static final int WIDTH = 400;
+  public static final int HEIGHT = 700;
+
   // the unit in the world
   Hero hero = Hero.hero;
   Sky sky = Sky.sky;
@@ -36,10 +39,10 @@ public class World extends JPanel {
     World w = new World();// run start method in main method
     frame.add(w);// add world to window
     w.start();
-    frame.setSize(400, 700);// set the window size
+    frame.setSize(WIDTH, HEIGHT);// set the window size
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
     frame.setLocationRelativeTo(null);// window initialized location
     frame.setVisible(true);// display the window
-    
+
   }
 }

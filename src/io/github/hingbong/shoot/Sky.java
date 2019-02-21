@@ -12,7 +12,7 @@ public class Sky extends FlyObject {
   static Sky sky = new Sky();
 
   private Sky() {
-    super(0, 0, 400, 700);
+    super(0, 0, World.WIDTH, World.HEIGHT);
     y1 = -height;
     speed = 1;
   }
