@@ -1,7 +1,7 @@
 package io.github.hingbong.shoot;
 
 import java.awt.Graphics;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -15,8 +15,8 @@ public class World extends JPanel {
   // the unit in the world
   Hero hero = Hero.hero;
   Sky sky = Sky.sky;
-  FlyObject[] enemies = new FlyObject[0];
-  Bullet[] bullet = new Bullet[0];
+  ArrayList<FlyObject> enemies = new ArrayList<FlyObject>();
+  ArrayList<Bullet> bullet = new ArrayList<Bullet>();
 
   // generate enemy
   public FlyObject newEnemy() {
@@ -34,9 +34,8 @@ public class World extends JPanel {
   public void enterAction() {
     enterIndex++;
     if (enterIndex % 40 == 0) {
-      FlyObject enemy = newEnemy();
-      enemies = Arrays.copyOf(enemies, enemies.length + 1);
-      enemies[enemies.length - 1] = enemy;
+      enemies.add(newEnemy());
+      
     }
   }
 
@@ -45,9 +44,7 @@ public class World extends JPanel {
   public void shootAction() {
     shootIndex++;
     if (shootIndex % 20 == 0) {
-      Bullet[] bs = hero.shoot();
-      bullet = Arrays.copyOf(bullet, bullet.length + bs.length);
-      System.arraycopy(bs, 0, bullet, bullet.length - bs.length, bs.length);
+      bullet.addAll(hero.shoot());
     }
   }
 
