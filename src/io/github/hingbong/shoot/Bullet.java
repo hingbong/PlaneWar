@@ -19,7 +19,9 @@ public class Bullet extends FlyObject {
   }
 
   @Override
-  public void step() {}
+  public void step() {
+    y -= speed;
+  }
 
   @Override
   public BufferedImage getImage() {
