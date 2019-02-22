@@ -15,7 +15,7 @@ public class Hero extends FlyObject {
   static Hero hero = new Hero();
 
   private Hero() {
-    super(200 - 97 / 2, 500, 97, 124);
+    super(World.WIDTH / 2 - 97 / 2, World.HEIGHT - 200, 97, 124);
     life = 3;// at the beginning of the game,there are 3 lives
     doubleFire = 0;// at the beginning of the game,there is single bullet
   }
