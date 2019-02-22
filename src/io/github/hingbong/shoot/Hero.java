@@ -23,14 +23,26 @@ public class Hero extends FlyObject {
   @Override
   public void step() {}
 
-  public boolean isDoubleFire() {
-    return doubleFire == 1;
-  }
-
   int index = 0;
 
   @Override
   public BufferedImage getImage() {
     return images[index++ % images.length];
+  }
+
+  public Bullet[] shoot() {
+    int x = 16;
+    int y = 14;
+    if (doubleFire == 0) {
+      Bullet[] bs = new Bullet[1];
+      bs[0] = new Bullet(this.x + x * 3 - 3, this.y - y);
+      return bs;
+    } else {
+      Bullet[] bs = new Bullet[2];
+      bs[0] = new Bullet(this.x + x - 3, this.y + y * 3);
+      bs[1] = new Bullet(this.x + x * 5 - 3, this.y + y * 3);
+      doubleFire--;
+      return bs;
+    }
   }
 }
