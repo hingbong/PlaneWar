@@ -1,13 +1,13 @@
 package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Bee extends FlyObject {
-  private static ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+  private static BufferedImage[] images;// image type array
   static {
-    for (int i = 0; i < 5; i++) {
-      images.add(loadImage("res/bee" + i + ".png"));
+    images = new BufferedImage[5];
+    for (int i = 0; i < images.length; i++) {
+      images[i] = loadImage("res/bee" + i + ".png");
     }
   }
   private int xSpeed;
@@ -35,12 +35,12 @@ public class Bee extends FlyObject {
   @Override
   public BufferedImage getImage() {
     if (isLife()) {
-      return images.get(0);
+      return images[0];
     } else if (isDead()) {
-      if (index == images.size() - 1) {
+      if (index == images.length - 1) {
         this.state = REMOVE;
       }
-      return images.get(index++);
+      return images[index++];
     } else {
       return null;
     }
