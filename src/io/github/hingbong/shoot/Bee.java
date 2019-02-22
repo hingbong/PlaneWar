@@ -22,7 +22,13 @@ public class Bee extends FlyObject {
   }
 
   @Override
-  public void step() {}
+  public void step() {
+    y += ySpeed;
+    x += xSpeed;
+    if (x <= 0 || x >= World.WIDTH - width + 1) {
+      xSpeed = -xSpeed;
+    }
+  }
 
   int index = 1;
 
