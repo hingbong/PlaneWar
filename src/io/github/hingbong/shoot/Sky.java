@@ -1,5 +1,6 @@
 package io.github.hingbong.shoot;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Sky extends FlyObject {
@@ -29,6 +30,11 @@ public class Sky extends FlyObject {
     }
   }
 
+  @Override
+  public void paintObject(Graphics g) {
+    super.paintObject(g);
+    g.drawImage(getImage(), x, y1, null);
+  }
 
   @Override
   public BufferedImage getImage() {
