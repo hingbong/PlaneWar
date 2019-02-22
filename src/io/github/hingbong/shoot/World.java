@@ -1,6 +1,7 @@
 package io.github.hingbong.shoot;
 
 import java.awt.Graphics;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -26,6 +27,17 @@ public class World extends JPanel {
       return new AirPlane();
     } else
       return new BigPlane();
+  }
+
+  int enterIndex = 0;
+
+  public void enterAction() {
+    enterIndex++;
+    if (enterIndex % 50 == 0) {
+      FlyObject enemy = newEnemy();
+      enemies = Arrays.copyOf(enemies, enemies.length);
+      enemies[enemies.length - 1] = enemy;
+    }
   }
 
   public void start() {
