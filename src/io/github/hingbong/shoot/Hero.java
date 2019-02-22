@@ -39,8 +39,8 @@ public class Hero extends FlyObject {
       return bs;
     } else {
       Bullet[] bs = new Bullet[2];
-      bs[0] = new Bullet(this.x + x - 3, this.y + y * 3);
-      bs[1] = new Bullet(this.x + x * 5 - 3, this.y + y * 3);
+      bs[0] = new Bullet(this.x + x - 3, this.y + y * 2);
+      bs[1] = new Bullet(this.x + x * 5 - 3, this.y + y * 2);
       doubleFire--;
       return bs;
     }
