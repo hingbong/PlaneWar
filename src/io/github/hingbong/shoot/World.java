@@ -1,6 +1,9 @@
 package io.github.hingbong.shoot;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -8,15 +11,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class World extends JPanel {
+public class World extends JPanel implements MouseMotionListener {
+
   public static final int WIDTH = 480;
   public static final int HEIGHT = 852;
 
   // the unit in the world
-  Hero hero = Hero.hero;
-  Sky sky = Sky.sky;
+  JFrame frame = new JFrame("Shoot Game");// initialize the window
+  private Point mousePoint;
+
   FlyObject[] enemies = new FlyObject[0];
   Bullet[] bullet = new Bullet[0];
+
+  public World() {
+    this.addMouseMotionListener(this);
+  }
 
   // generate enemy
   public FlyObject newEnemy() {
@@ -25,8 +34,9 @@ public class World extends JPanel {
       return new Bee();
     } else if (number < 55) {
       return new AirPlane();
-    } else
+    } else {
       return new BigPlane();
+    }
   }
 
   int enterIndex = 0;
@@ -44,21 +54,32 @@ public class World extends JPanel {
 
   public void shootAction() {
     shootIndex++;
-    if (shootIndex % 20 == 0) {
-      Bullet[] bs = hero.shoot();
+    if (shootIndex % 15 == 0) {
+      Bullet[] bs = Hero.hero.shoot();
       bullet = Arrays.copyOf(bullet, bullet.length + bs.length);
       System.arraycopy(bs, 0, bullet, bullet.length - bs.length, bs.length);
     }
   }
 
   public void stepAction() {
-    sky.step();
+    Sky.sky.step();
     for (FlyObject f : enemies) {
       f.step();
     }
     for (Bullet b : bullet) {
       b.step();
     }
+  }
+
+  @Override
+  public void mouseDragged(MouseEvent e) {
+  }
+
+  @Override
+  public void mouseMoved(MouseEvent e) {
+    mousePoint = e.getPoint();
+    Hero.hero.x = mousePoint.x - 48;
+    Hero.hero.y = mousePoint.y - 62;
   }
 
   public void start() {
@@ -81,25 +102,26 @@ public class World extends JPanel {
 
   @Override
   public void paint(Graphics g) {
-    sky.paintObject(g);
+    Sky.sky.paintObject(g);
     for (FlyObject f : enemies) {
       f.paintObject(g);
     }
     for (Bullet b : bullet) {
       b.paintObject(g);
     }
-    hero.paintObject(g);
+    Hero.hero.paintObject(g);
   }
 
   public static void main(String[] args) {
-    JFrame frame = new JFrame("Shoot Game");// initialize the window
+
     World w = new World();// run start method in main method
-    frame.add(w);// add world to window
+    w.frame.add(w);// add world to window
     w.start();
-    frame.setSize(WIDTH, HEIGHT);// set the window size
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
-    frame.setLocationRelativeTo(null);// window initialized location
-    frame.setVisible(true);// display the window
+    w.frame.setSize(WIDTH, HEIGHT);// set the window size
+    w.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
+    w.frame.setLocationRelativeTo(null);// window initialized location
+    w.frame.setVisible(true);// display the window
 
   }
+
 }
