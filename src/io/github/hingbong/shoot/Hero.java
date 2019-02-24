@@ -1,8 +1,5 @@
 package io.github.hingbong.shoot;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class Hero extends FlyObject {
@@ -27,8 +24,8 @@ public class Hero extends FlyObject {
   }
 
   @Override
-  public void step() {}
-
+  public void step() {
+  }
 
 
   int index = 0;
