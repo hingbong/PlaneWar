@@ -92,6 +92,15 @@ public class World extends JPanel implements MouseMotionListener {
       }
     }
     enemies = Arrays.copyOf(eList, index);
+    index = 0;
+    Bullet[] bList = new Bullet[bullet.length];
+    for (Bullet b : bullet) {
+      if (!b.outOfBounds()) {
+        bList[index] = b;
+        index++;
+      }
+    }
+    bullet = Arrays.copyOf(bList, index);
   }
 
   public void start() {
