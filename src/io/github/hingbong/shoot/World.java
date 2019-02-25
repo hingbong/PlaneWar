@@ -17,8 +17,6 @@ public class World extends JPanel implements MouseMotionListener {
 
   // the unit in the world
   JFrame frame = new JFrame("Shoot Game");// initialize the window
-  Sky sky = Sky.sky;
-  Hero hero = Hero.hero;
   FlyObject[] enemies = new FlyObject[0];
   Bullet[] bullet = new Bullet[0];
 
@@ -54,14 +52,14 @@ public class World extends JPanel implements MouseMotionListener {
   public void shootAction() {
     shootIndex++;
     if (shootIndex % 20 == 0) {
-      Bullet[] bs = hero.shoot();
+      Bullet[] bs = Hero.hero.shoot();
       bullet = Arrays.copyOf(bullet, bullet.length + bs.length);
       System.arraycopy(bs, 0, bullet, bullet.length - bs.length, bs.length);
     }
   }
 
   public void stepAction() {
-    sky.step();
+    Sky.sky.step();
     for (FlyObject f : enemies) {
       f.step();
     }
@@ -75,8 +73,8 @@ public class World extends JPanel implements MouseMotionListener {
 
   @Override
   public void mouseMoved(MouseEvent e) {
-    hero.x = e.getX() - hero.width / 2;
-    hero.y = e.getY() - hero.height / 2;
+    Hero.hero.x = e.getX() - Hero.hero.width / 2;
+    Hero.hero.y = e.getY() - Hero.hero.height / 2;
   }
 
   public void outOfBoundsAction() {
@@ -121,14 +119,14 @@ public class World extends JPanel implements MouseMotionListener {
 
   @Override
   public void paint(Graphics g) {
-    sky.paintObject(g);
+    Sky.sky.paintObject(g);
     for (FlyObject f : enemies) {
       f.paintObject(g);
     }
     for (Bullet b : bullet) {
       b.paintObject(g);
     }
-    hero.paintObject(g);
+    Hero.hero.paintObject(g);
   }
 
   public static void main(String[] args) {
