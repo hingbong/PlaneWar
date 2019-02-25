@@ -82,6 +82,18 @@ public class World extends JPanel implements MouseMotionListener {
     hero.y = mousePoint.y - 62;
   }
 
+  public void outOfBoundsAction() {
+    int index = 0;// record in window enemies count and their index
+    FlyObject[] eList = new FlyObject[enemies.length];
+    for (FlyObject e : enemies) {
+      if (!e.outOfBounds()) {
+        eList[index] = e;
+        index++;
+      }
+    }
+    enemies = Arrays.copyOf(eList, index);
+  }
+
   public void start() {
     // set a timer
     Timer timer = new Timer();
@@ -94,6 +106,7 @@ public class World extends JPanel implements MouseMotionListener {
         enterAction();
         shootAction();
         stepAction();
+        outOfBoundsAction();
         repaint();
       }
     };
