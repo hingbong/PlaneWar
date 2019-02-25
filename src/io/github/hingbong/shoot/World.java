@@ -56,7 +56,7 @@ public class World extends JPanel implements MouseMotionListener {
   public void shootAction() {
     shootIndex++;
     if (shootIndex % 15 == 0) {
-      Bullet[] bs = Hero.hero.shoot();
+      Bullet[] bs = hero.shoot();
       bullet = Arrays.copyOf(bullet, bullet.length + bs.length);
       System.arraycopy(bs, 0, bullet, bullet.length - bs.length, bs.length);
     }
@@ -78,8 +78,8 @@ public class World extends JPanel implements MouseMotionListener {
   @Override
   public void mouseMoved(MouseEvent e) {
     mousePoint = e.getPoint();
-    hero.x = mousePoint.x - 48;
-    hero.y = mousePoint.y - 62;
+    hero.x = mousePoint.x - hero.width / 2;
+    hero.y = mousePoint.y - hero.height / 2;
   }
 
   public void outOfBoundsAction() {
