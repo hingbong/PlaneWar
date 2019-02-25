@@ -18,7 +18,6 @@ public class World extends JPanel implements MouseMotionListener {
 
   // the unit in the world
   JFrame frame = new JFrame("Shoot Game");// initialize the window
-  private Point mousePoint;
   Sky sky = Sky.sky;
   Hero hero = Hero.hero;
   FlyObject[] enemies = new FlyObject[0];
@@ -77,9 +76,8 @@ public class World extends JPanel implements MouseMotionListener {
 
   @Override
   public void mouseMoved(MouseEvent e) {
-    mousePoint = e.getPoint();
-    hero.x = mousePoint.x - hero.width / 2;
-    hero.y = mousePoint.y - hero.height / 2;
+    hero.x = e.getX() - hero.width / 2;
+    hero.y = e.getY() - hero.height / 2;
   }
 
   public void outOfBoundsAction() {
