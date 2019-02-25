@@ -19,7 +19,8 @@ public class World extends JPanel implements MouseMotionListener {
   // the unit in the world
   JFrame frame = new JFrame("Shoot Game");// initialize the window
   private Point mousePoint;
-
+  Sky sky = Sky.sky;
+  Hero hero = Hero.hero;
   FlyObject[] enemies = new FlyObject[0];
   Bullet[] bullet = new Bullet[0];
 
@@ -62,7 +63,7 @@ public class World extends JPanel implements MouseMotionListener {
   }
 
   public void stepAction() {
-    Sky.sky.step();
+    sky.step();
     for (FlyObject f : enemies) {
       f.step();
     }
@@ -72,14 +73,13 @@ public class World extends JPanel implements MouseMotionListener {
   }
 
   @Override
-  public void mouseDragged(MouseEvent e) {
-  }
+  public void mouseDragged(MouseEvent e) {}
 
   @Override
   public void mouseMoved(MouseEvent e) {
     mousePoint = e.getPoint();
-    Hero.hero.x = mousePoint.x - 48;
-    Hero.hero.y = mousePoint.y - 62;
+    hero.x = mousePoint.x - 48;
+    hero.y = mousePoint.y - 62;
   }
 
   public void start() {
@@ -102,18 +102,17 @@ public class World extends JPanel implements MouseMotionListener {
 
   @Override
   public void paint(Graphics g) {
-    Sky.sky.paintObject(g);
+    sky.paintObject(g);
     for (FlyObject f : enemies) {
       f.paintObject(g);
     }
     for (Bullet b : bullet) {
       b.paintObject(g);
     }
-    Hero.hero.paintObject(g);
+    hero.paintObject(g);
   }
 
   public static void main(String[] args) {
-
     World w = new World();// run start method in main method
     w.frame.add(w);// add world to window
     w.start();
