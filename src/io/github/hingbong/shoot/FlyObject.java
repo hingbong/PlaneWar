@@ -59,6 +59,12 @@ public abstract class FlyObject {
     g.drawImage(getImage(), x, y, null);
   }
 
+  public boolean outOfBounds() {
+    // if it's true ,that is out of the bounds
+    return y > World.HEIGHT || y < -height;
+
+  }
+
   public abstract BufferedImage getImage();
 
   public static BufferedImage loadImage(String fileName) {// the method to load pictures
