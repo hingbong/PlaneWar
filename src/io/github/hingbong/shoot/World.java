@@ -1,7 +1,6 @@
 package io.github.hingbong.shoot;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.Arrays;
@@ -54,7 +53,7 @@ public class World extends JPanel implements MouseMotionListener {
 
   public void shootAction() {
     shootIndex++;
-    if (shootIndex % 15 == 0) {
+    if (shootIndex % 20 == 0) {
       Bullet[] bs = hero.shoot();
       bullet = Arrays.copyOf(bullet, bullet.length + bs.length);
       System.arraycopy(bs, 0, bullet, bullet.length - bs.length, bs.length);
