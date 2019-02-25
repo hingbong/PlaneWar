@@ -2,7 +2,7 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public class BigPlane extends FlyObject {
+public class BigPlane extends FlyObject implements EnemyScore {
   private static BufferedImage[] images;// image type array
   static {
     images = new BufferedImage[5];
@@ -36,6 +36,11 @@ public class BigPlane extends FlyObject {
     } else {
       return null;
     }
+  }
+
+  @Override
+  public int getScore() {
+    return 3;
   }
 
 }
