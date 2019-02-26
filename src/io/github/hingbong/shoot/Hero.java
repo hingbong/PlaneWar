@@ -24,8 +24,7 @@ public class Hero extends FlyObject {
   }
 
   @Override
-  public void step() {
-  }
+  public void step() {}
 
 
   int index = 0;
@@ -50,5 +49,18 @@ public class Hero extends FlyObject {
       return bs;
     }
   }
+
+  public void addLife() {
+    life++;
+  }
+
+  public void addFire() {
+    doubleFire += 30;
+  }
+
+  public int getLife() {
+    return life;
+  }
+
 }
 
