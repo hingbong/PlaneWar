@@ -22,8 +22,6 @@ public class BigPlane extends FlyObject implements EnemyScore {
     y += speed;
   }
 
-  int index = 1;
-
   @Override
   public BufferedImage getImage() {
     if (isLife()) {

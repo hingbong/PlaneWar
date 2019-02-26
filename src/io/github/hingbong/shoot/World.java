@@ -14,6 +14,7 @@ public class World extends JPanel implements MouseMotionListener {
 
   public static final int WIDTH = 480;
   public static final int HEIGHT = 852;
+  private int score = 0;
 
   // the unit in the world
   JFrame frame = new JFrame("Shoot Game");// initialize the window
@@ -77,10 +78,11 @@ public class World extends JPanel implements MouseMotionListener {
     Hero.hero.y = e.getY() - Hero.hero.height / 2;
   }
 
-  public void outOfBoundsAction() {
+  public void clearAction() {
     int index = 0;// record in window enemies count and their index
     FlyObject[] eList = new FlyObject[enemies.length];
     for (FlyObject e : enemies) {
+      e.outOfBounds();
       if (!e.isRemove()) {
         eList[index] = e;
         index++;
@@ -90,27 +92,46 @@ public class World extends JPanel implements MouseMotionListener {
     index = 0;
     Bullet[] bList = new Bullet[bullet.length];
     for (Bullet b : bullet) {
+      b.outOfBounds();
       if (!b.isRemove()) {
         bList[index] = b;
         index++;
       }
     }
     bullet = Arrays.copyOf(bList, index);
-    for (FlyObject e : enemies) {
-      for (Bullet b : bullet) {
-        e.hit(b);
-        if (e instanceof Bee) {
-          switch (((Bee) e).getRewardType()) {
-            case Bee.LIFE:
-              Hero.hero.addLife();
-              break;
-            case Bee.DOUBLE_FIRE:
-              Hero.hero.addFire();
-              break;
+
+  }
+
+  public void hitBulletAction() {
+    clearAction();
+    for (Bullet b : bullet) {
+      for (FlyObject e : enemies) {
+        if (e.hit(b) && e.isDead()) {
+          if (e instanceof Bee) {
+            switch (((Bee) e).getRewardType()) {
+              case Bee.LIFE:
+                Hero.hero.addLife();
+                break;
+              case Bee.DOUBLE_FIRE:
+                Hero.hero.addFire();
+                break;
+            }
+          } else {
+            score += ((EnemyScore) e).getScore();
           }
+          break;
         }
       }
-      e.hit(Hero.hero);
+    }
+  }
+
+  public void hitHeroAction() {
+    clearAction();
+    for (FlyObject e : enemies) {
+      if (e.hit(Hero.hero) && e.index == 4) {
+        Hero.hero.minusLife();
+        break;
+      }
     }
   }
 
@@ -126,7 +147,9 @@ public class World extends JPanel implements MouseMotionListener {
         enterAction();
         shootAction();
         stepAction();
-        outOfBoundsAction();
+        clearAction();
+        hitBulletAction();
+        hitHeroAction();
         repaint();
       }
     };
@@ -143,7 +166,8 @@ public class World extends JPanel implements MouseMotionListener {
       b.paintObject(g);
     }
     Hero.hero.paintObject(g);
-    g.drawString("LIFE:"+Hero.hero.getLife(), 50, 50);
+    g.drawString("SCORE:" + score, 50, 30);
+    g.drawString("LIFE:" + Hero.hero.getLife(), 50, 50);
   }
 
   public static void main(String[] args) {

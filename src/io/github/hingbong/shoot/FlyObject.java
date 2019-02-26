@@ -17,6 +17,7 @@ public abstract class FlyObject {
   protected int y;
   protected int width;
   protected int height;
+  protected int index = 0;
 
   public FlyObject() {}
 
@@ -78,16 +79,19 @@ public abstract class FlyObject {
     }
   }
 
-  public void hit(FlyObject other) {
+  public boolean hit(FlyObject other) {
     int x1 = this.x - other.width;
     int x2 = this.x + this.width;
     int y1 = this.y - other.height;
     int y2 = this.y + this.height;
     if (other.x < x2 && other.x > x1 && other.y < y2 && other.y > y1) {
-      if (other instanceof Bullet)
+      if (other instanceof Bullet) {
         other.state = REMOVE;
+      }
       this.state = DEAD;
-    }
+      return true;
+    } else
+      return false;
   }
 
 }

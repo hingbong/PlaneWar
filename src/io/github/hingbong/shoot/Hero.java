@@ -26,9 +26,6 @@ public class Hero extends FlyObject {
   @Override
   public void step() {}
 
-
-  int index = 0;
-
   @Override
   public BufferedImage getImage() {
     return images[index++ % images.length];
@@ -50,16 +47,20 @@ public class Hero extends FlyObject {
     }
   }
 
-  public void addLife() {
-    life++;
-  }
-
   public void addFire() {
     doubleFire += 20;
   }
 
   public int getLife() {
     return life;
+  }
+
+  public void addLife() {
+    this.life++;
+  }
+
+  public void minusLife() {
+    this.life--;
   }
 
 }

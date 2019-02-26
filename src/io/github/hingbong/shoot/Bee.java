@@ -32,8 +32,6 @@ public class Bee extends FlyObject implements Reward {
     }
   }
 
-  int index = 1;
-
   @Override
   public BufferedImage getImage() {
     if (isLife()) {
