@@ -55,7 +55,7 @@ public class Hero extends FlyObject {
   }
 
   public void addFire() {
-    doubleFire += 30;
+    doubleFire += 20;
   }
 
   public int getLife() {

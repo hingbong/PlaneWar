@@ -51,7 +51,7 @@ public class World extends JPanel implements MouseMotionListener {
 
   public void shootAction() {
     shootIndex++;
-    if (shootIndex % 20 == 0) {
+    if (shootIndex % 40 == 0) {
       Bullet[] bs = Hero.hero.shoot();
       bullet = Arrays.copyOf(bullet, bullet.length + bs.length);
       System.arraycopy(bs, 0, bullet, bullet.length - bs.length, bs.length);
@@ -99,6 +99,16 @@ public class World extends JPanel implements MouseMotionListener {
     for (FlyObject e : enemies) {
       for (Bullet b : bullet) {
         e.hit(b);
+        if (e instanceof Bee) {
+          switch (((Bee) e).getRewardType()) {
+            case Bee.LIFE:
+              Hero.hero.addLife();
+              break;
+            case Bee.DOUBLE_FIRE:
+              Hero.hero.addFire();
+              break;
+          }
+        }
       }
       e.hit(Hero.hero);
     }
@@ -133,6 +143,7 @@ public class World extends JPanel implements MouseMotionListener {
       b.paintObject(g);
     }
     Hero.hero.paintObject(g);
+    g.drawString("LIFE:"+Hero.hero.getLife(), 50, 50);
   }
 
   public static void main(String[] args) {
@@ -143,7 +154,6 @@ public class World extends JPanel implements MouseMotionListener {
     w.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
     w.frame.setLocationRelativeTo(null);// window initialized location
     w.frame.setVisible(true);// display the window
-
   }
 
 }
