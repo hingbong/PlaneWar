@@ -81,7 +81,7 @@ public class World extends JPanel implements MouseMotionListener {
     int index = 0;// record in window enemies count and their index
     FlyObject[] eList = new FlyObject[enemies.length];
     for (FlyObject e : enemies) {
-      if (!e.outOfBounds()) {
+      if (!e.isRemove()) {
         eList[index] = e;
         index++;
       }
@@ -90,12 +90,18 @@ public class World extends JPanel implements MouseMotionListener {
     index = 0;
     Bullet[] bList = new Bullet[bullet.length];
     for (Bullet b : bullet) {
-      if (!b.outOfBounds()) {
+      if (!b.isRemove()) {
         bList[index] = b;
         index++;
       }
     }
     bullet = Arrays.copyOf(bList, index);
+    for (FlyObject e : enemies) {
+      for (Bullet b : bullet) {
+        e.hit(b);
+      }
+      e.hit(Hero.hero);
+    }
   }
 
   public void start() {

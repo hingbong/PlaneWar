@@ -59,10 +59,10 @@ public abstract class FlyObject {
     g.drawImage(getImage(), x, y, null);
   }
 
-  public boolean outOfBounds() {
+  public void outOfBounds() {
     // if it's true ,that is out of the bounds
-    return y > World.HEIGHT || y < -height;
-
+    if (y > World.HEIGHT || y < -height)
+      state = REMOVE;
   }
 
   public abstract BufferedImage getImage();
@@ -77,4 +77,17 @@ public abstract class FlyObject {
       throw new RuntimeException();
     }
   }
+
+  public void hit(FlyObject other) {
+    int x1 = this.x - other.width;
+    int x2 = this.x + this.width;
+    int y1 = this.y - other.height;
+    int y2 = this.y + this.height;
+    if (other.x < x2 && other.x > x1 && other.y < y2 && other.y > y1) {
+      if (other instanceof Bullet)
+        other.state = REMOVE;
+      this.state = DEAD;
+    }
+  }
+
 }
