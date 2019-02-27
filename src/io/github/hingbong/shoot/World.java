@@ -14,15 +14,26 @@ public class World extends JPanel implements MouseMotionListener {
 
   public static final int WIDTH = 480;
   public static final int HEIGHT = 852;
-  private int score = 0;
-
   // the unit in the world
   JFrame frame = new JFrame("Shoot Game");// initialize the window
   FlyObject[] enemies = new FlyObject[0];
   Bullet[] bullet = new Bullet[0];
+  int enterIndex = 0;
+  int shootIndex = 0;
+  private int score = 0;
 
   public World() {
     this.addMouseMotionListener(this);
+  }
+
+  public static void main(String[] args) {
+    World w = new World();// run start method in main method
+    w.frame.add(w);// add world to window
+    w.start();
+    w.frame.setSize(WIDTH, HEIGHT);// set the window size
+    w.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
+    w.frame.setLocationRelativeTo(null);// window initialized location
+    w.frame.setVisible(true);// display the window
   }
 
   // generate enemy
@@ -37,8 +48,6 @@ public class World extends JPanel implements MouseMotionListener {
     }
   }
 
-  int enterIndex = 0;
-
   public void enterAction() {
     enterIndex++;
     if (enterIndex % 40 == 0) {
@@ -47,8 +56,6 @@ public class World extends JPanel implements MouseMotionListener {
       enemies[enemies.length - 1] = enemy;
     }
   }
-
-  int shootIndex = 0;
 
   public void shootAction() {
     shootIndex++;
@@ -70,7 +77,8 @@ public class World extends JPanel implements MouseMotionListener {
   }
 
   @Override
-  public void mouseDragged(MouseEvent e) {}
+  public void mouseDragged(MouseEvent e) {
+  }
 
   @Override
   public void mouseMoved(MouseEvent e) {
@@ -129,6 +137,7 @@ public class World extends JPanel implements MouseMotionListener {
     clearAction();
     for (FlyObject e : enemies) {
       if (e.hit(Hero.hero) && e.index == 4) {
+        Hero.hero.doubleFireClear();
         Hero.hero.minusLife();
         break;
       }
@@ -168,16 +177,6 @@ public class World extends JPanel implements MouseMotionListener {
     Hero.hero.paintObject(g);
     g.drawString("SCORE:" + score, 50, 30);
     g.drawString("LIFE:" + Hero.hero.getLife(), 50, 50);
-  }
-
-  public static void main(String[] args) {
-    World w = new World();// run start method in main method
-    w.frame.add(w);// add world to window
-    w.start();
-    w.frame.setSize(WIDTH, HEIGHT);// set the window size
-    w.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
-    w.frame.setLocationRelativeTo(null);// window initialized location
-    w.frame.setVisible(true);// display the window
   }
 
 }
