@@ -7,7 +7,7 @@ public class Bee extends Enemy {
   static final int LIFE = 0;
   static final int DOUBLE_FIRE = 1;
 
-  static {
+  {
     images = new BufferedImage[5];
     for (int i = 0; i < images.length; i++) {
       images[i] = loadImage("res/bee" + i + ".png");

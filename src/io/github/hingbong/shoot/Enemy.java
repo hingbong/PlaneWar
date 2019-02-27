@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Enemy extends FlyObject {
 
-  static BufferedImage[] images;// image type array
+  BufferedImage[] images;// image type array
 
   Enemy(int width, int height) {
     super(width, height);

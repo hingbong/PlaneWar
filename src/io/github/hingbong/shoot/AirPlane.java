@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class AirPlane extends Enemy implements EnemyScore {
 
-  static {
+  {
     images = new BufferedImage[5];
     for (int i = 0; i < images.length; i++) {
       images[i] = loadImage("res/airplane" + i + ".png");
