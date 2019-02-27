@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Hero extends FlyObject {
 
   static Hero hero = new Hero();
-  private static BufferedImage[] images;// image type array
+  private static final BufferedImage[] images;// image type array
 
   static {
     images = new BufferedImage[2];
@@ -66,6 +66,10 @@ public class Hero extends FlyObject {
 
   void doubleFireClear() {
     doubleFire = 0;
+  }
+
+  void initHero() {
+    hero = new Hero();
   }
 }
 

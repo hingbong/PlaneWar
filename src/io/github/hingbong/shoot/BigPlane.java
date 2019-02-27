@@ -2,8 +2,8 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public class BigPlane extends FlyObject implements EnemyScore {
-  private static BufferedImage[] images;// image type array
+public class BigPlane extends Enemy implements EnemyScore {
+
   static {
     images = new BufferedImage[5];
     for (int i = 0; i < images.length; i++) {
@@ -22,19 +22,6 @@ public class BigPlane extends FlyObject implements EnemyScore {
     y += speed;
   }
 
-  @Override
-  public BufferedImage getImage() {
-    if (isLife()) {
-      return images[0];
-    } else if (isDead()) {
-      if (index == images.length - 1) {
-        this.state = getREMOVE();
-      }
-      return images[index++];
-    } else {
-      return null;
-    }
-  }
 
   @Override
   public int getScore() {

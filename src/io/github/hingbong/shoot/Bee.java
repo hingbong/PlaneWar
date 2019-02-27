@@ -2,11 +2,10 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public class Bee extends FlyObject implements Reward {
+public class Bee extends Enemy {
 
   static final int LIFE = 0;
   static final int DOUBLE_FIRE = 1;
-  private static BufferedImage[] images;// image type array
 
   static {
     images = new BufferedImage[5];
@@ -35,22 +34,8 @@ public class Bee extends FlyObject implements Reward {
     }
   }
 
-  @Override
-  public BufferedImage getImage() {
-    if (isLife()) {
-      return images[0];
-    } else if (isDead()) {
-      if (index == images.length - 1) {
-        this.state = getREMOVE();
-      }
-      return images[index++];
-    } else {
-      return null;
-    }
-  }
 
-  @Override
-  public int getRewardType() {
+  int getRewardType() {
     return rewardType;
   }
 }

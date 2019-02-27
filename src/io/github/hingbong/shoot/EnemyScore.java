@@ -1,6 +1,6 @@
 package io.github.hingbong.shoot;
 
-public interface EnemyScore {
+interface EnemyScore {
 
   int getScore();
 }

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Bullet extends FlyObject {
 
-  private static BufferedImage image;
+  private static final BufferedImage image;
 
   static {
     image = loadImage("res/bullet.png");

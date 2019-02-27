@@ -1,8 +1,11 @@
 package io.github.hingbong.shoot;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,19 +13,36 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class World extends JPanel implements MouseMotionListener {
+public class World extends JPanel implements MouseMotionListener, MouseListener {
 
   static final int WIDTH = 480;
   static final int HEIGHT = 852;
+
+  private static final int START = 0;
+  private static final int RUNNING = 1;
+  private static final int PAUSE = 2;
+  private static final int GAME_OVER = 3;
+  private static final BufferedImage start;
+  private static final BufferedImage pause;
+  private static final BufferedImage gameOver;
+
+  static {
+    start = FlyObject.loadImage("res/start.png");
+    pause = FlyObject.loadImage("res/pause.png");
+    gameOver = FlyObject.loadImage("res/gameover.png");
+  }
+
   // the unit in the world
-  private JFrame frame = new JFrame("Shoot Game");// initialize the window
+  private final JFrame frame = new JFrame("Shoot Game");// initialize the window
   private FlyObject[] enemies = new FlyObject[0];
   private Bullet[] bullet = new Bullet[0];
   private int enterIndex = 0;
   private int shootIndex = 0;
   private int score = 0;
+  private int state = START;
 
   private World() {
+    this.addMouseListener(this);
     this.addMouseMotionListener(this);
   }
 
@@ -34,6 +54,15 @@ public class World extends JPanel implements MouseMotionListener {
     w.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
     w.frame.setLocationRelativeTo(null);// window initialized location
     w.frame.setVisible(true);// display the window
+    w.frame.setBackground(Color.white);
+  }
+
+  private void checkRunningAction() {
+    if (state == RUNNING) {
+      if (Hero.hero.getLife() <= 0) {
+        state = GAME_OVER;
+      }
+    }
   }
 
   // generate enemy
@@ -77,13 +106,58 @@ public class World extends JPanel implements MouseMotionListener {
   }
 
   @Override
+  public void mousePressed(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+
+  }
+
+  @Override
   public void mouseDragged(MouseEvent e) {
   }
 
   @Override
   public void mouseMoved(MouseEvent e) {
-    Hero.hero.x = e.getX() - Hero.hero.width / 2;
-    Hero.hero.y = e.getY() - Hero.hero.height / 2;
+    if (state == RUNNING) {
+      Hero.hero.x = e.getX() - Hero.hero.width / 2;
+      Hero.hero.y = e.getY() - Hero.hero.height / 2;
+    }
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    switch (state) {
+      case START:
+        state = RUNNING;
+        break;
+      case GAME_OVER:
+        score = 0;
+        Hero.hero.initHero();
+        Hero.hero.doubleFireClear();
+        Sky.sky.initSky();
+        enemies = new FlyObject[0];
+        bullet = new Bullet[0];
+        state = START;
+        break;
+    }
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    if (state == RUNNING) {
+      state = PAUSE;
+    }
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    if (state == PAUSE) {
+      state = RUNNING;
+    }
   }
 
   private void clearAction() {
@@ -153,12 +227,15 @@ public class World extends JPanel implements MouseMotionListener {
 
       @Override
       public void run() {
-        enterAction();
-        shootAction();
-        stepAction();
-        clearAction();
-        hitBulletAction();
-        hitHeroAction();
+        if (state == RUNNING) {
+          enterAction();
+          shootAction();
+          stepAction();
+          clearAction();
+          hitBulletAction();
+          hitHeroAction();
+          checkRunningAction();
+        }
         repaint();
       }
     };
@@ -167,16 +244,31 @@ public class World extends JPanel implements MouseMotionListener {
 
   @Override
   public void paint(Graphics g) {
-    Sky.sky.paintObject(g);
-    for (FlyObject f : enemies) {
-      f.paintObject(g);
+    if (state == START) {
+      g.clearRect(0, 0, WIDTH, HEIGHT);
+      g.drawImage(start, 40, 99, null);
     }
-    for (Bullet b : bullet) {
-      b.paintObject(g);
+    if (state == RUNNING) {
+      g.clearRect(0, 0, WIDTH, HEIGHT);
+      Sky.sky.paintObject(g);
+      for (FlyObject f : enemies) {
+        f.paintObject(g);
+      }
+      for (Bullet b : bullet) {
+        b.paintObject(g);
+      }
+      Hero.hero.paintObject(g);
+      g.drawString("SCORE:" + score, 50, 30);
+      g.drawString("LIFE:" + Hero.hero.getLife(), 50, 50);
     }
-    Hero.hero.paintObject(g);
-    g.drawString("SCORE:" + score, 50, 30);
-    g.drawString("LIFE:" + Hero.hero.getLife(), 50, 50);
+    if (state == PAUSE) {
+      g.clearRect(0, 0, WIDTH, HEIGHT);
+      g.drawImage(pause, 40, 99, null);
+    }
+    if (state == GAME_OVER) {
+      g.clearRect(0, 0, WIDTH, HEIGHT);
+      g.drawImage(gameOver, 40, 99, null);
+    }
   }
 
 }

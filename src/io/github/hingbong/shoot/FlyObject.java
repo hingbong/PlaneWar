@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public abstract class FlyObject {
+abstract class FlyObject {
 
   // three state
   private static final int LIFE = 0;
@@ -16,8 +16,8 @@ public abstract class FlyObject {
   int state = LIFE;
   int x;
   int y;
-  int width;
-  int height;
+  final int width;
+  final int height;
   int index = 0;
 
   // for airplane,bigplane and bee
@@ -81,7 +81,7 @@ public abstract class FlyObject {
     }
   }
 
-  public abstract BufferedImage getImage();
+  protected abstract BufferedImage getImage();
 
   boolean hit(FlyObject other) {
     int x1 = this.x - other.width;
