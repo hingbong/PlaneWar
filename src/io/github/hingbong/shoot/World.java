@@ -12,17 +12,17 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class World extends JPanel implements MouseMotionListener {
 
-  public static final int WIDTH = 480;
-  public static final int HEIGHT = 852;
+  static final int WIDTH = 480;
+  static final int HEIGHT = 852;
   // the unit in the world
-  JFrame frame = new JFrame("Shoot Game");// initialize the window
-  FlyObject[] enemies = new FlyObject[0];
-  Bullet[] bullet = new Bullet[0];
-  int enterIndex = 0;
-  int shootIndex = 0;
+  private JFrame frame = new JFrame("Shoot Game");// initialize the window
+  private FlyObject[] enemies = new FlyObject[0];
+  private Bullet[] bullet = new Bullet[0];
+  private int enterIndex = 0;
+  private int shootIndex = 0;
   private int score = 0;
 
-  public World() {
+  private World() {
     this.addMouseMotionListener(this);
   }
 
@@ -37,7 +37,7 @@ public class World extends JPanel implements MouseMotionListener {
   }
 
   // generate enemy
-  public FlyObject newEnemy() {
+  private FlyObject newEnemy() {
     int number = (int) (Math.random() * 100);
     if (number < 20) {
       return new Bee();
@@ -48,7 +48,7 @@ public class World extends JPanel implements MouseMotionListener {
     }
   }
 
-  public void enterAction() {
+  private void enterAction() {
     enterIndex++;
     if (enterIndex % 40 == 0) {
       FlyObject enemy = newEnemy();
@@ -57,7 +57,7 @@ public class World extends JPanel implements MouseMotionListener {
     }
   }
 
-  public void shootAction() {
+  private void shootAction() {
     shootIndex++;
     if (shootIndex % 40 == 0) {
       Bullet[] bs = Hero.hero.shoot();
@@ -66,7 +66,7 @@ public class World extends JPanel implements MouseMotionListener {
     }
   }
 
-  public void stepAction() {
+  private void stepAction() {
     Sky.sky.step();
     for (FlyObject f : enemies) {
       f.step();
@@ -86,12 +86,12 @@ public class World extends JPanel implements MouseMotionListener {
     Hero.hero.y = e.getY() - Hero.hero.height / 2;
   }
 
-  public void clearAction() {
+  private void clearAction() {
     int index = 0;// record in window enemies count and their index
     FlyObject[] eList = new FlyObject[enemies.length];
     for (FlyObject e : enemies) {
       e.outOfBounds();
-      if (!e.isRemove()) {
+      if (e.isNotRemove()) {
         eList[index] = e;
         index++;
       }
@@ -101,7 +101,7 @@ public class World extends JPanel implements MouseMotionListener {
     Bullet[] bList = new Bullet[bullet.length];
     for (Bullet b : bullet) {
       b.outOfBounds();
-      if (!b.isRemove()) {
+      if (b.isNotRemove()) {
         bList[index] = b;
         index++;
       }
@@ -110,7 +110,7 @@ public class World extends JPanel implements MouseMotionListener {
 
   }
 
-  public void hitBulletAction() {
+  private void hitBulletAction() {
     clearAction();
     for (Bullet b : bullet) {
       for (FlyObject e : enemies) {
@@ -133,7 +133,7 @@ public class World extends JPanel implements MouseMotionListener {
     }
   }
 
-  public void hitHeroAction() {
+  private void hitHeroAction() {
     clearAction();
     for (FlyObject e : enemies) {
       if (e.hit(Hero.hero) && e.index == 4) {
@@ -144,7 +144,7 @@ public class World extends JPanel implements MouseMotionListener {
     }
   }
 
-  public void start() {
+  private void start() {
     // set a timer
     Timer timer = new Timer();
     // set interval

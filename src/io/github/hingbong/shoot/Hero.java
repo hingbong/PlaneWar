@@ -48,23 +48,23 @@ public class Hero extends FlyObject {
     }
   }
 
-  public void addFire() {
+  void addFire() {
     doubleFire += 20;
   }
 
-  public int getLife() {
+  int getLife() {
     return life;
   }
 
-  public void addLife() {
+  void addLife() {
     this.life++;
   }
 
-  public void minusLife() {
+  void minusLife() {
     this.life--;
   }
 
-  public void doubleFireClear() {
+  void doubleFireClear() {
     doubleFire = 0;
   }
 }

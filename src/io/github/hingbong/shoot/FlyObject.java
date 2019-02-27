@@ -6,23 +6,22 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class FlyObject {
+
   // three state
-  public static final int LIFE = 0;
-  public static final int DEAD = 1;
-  public static final int REMOVE = 2;
+  private static final int LIFE = 0;
+  private static final int DEAD = 1;
+  private static final int REMOVE = 2;
 
   // current object state
-  protected int state = LIFE;
-  protected int x;
-  protected int y;
-  protected int width;
-  protected int height;
-  protected int index = 0;
-
-  public FlyObject() {}
+  int state = LIFE;
+  int x;
+  int y;
+  int width;
+  int height;
+  int index = 0;
 
   // for airplane,bigplane and bee
-  public FlyObject(int width, int height) {
+  FlyObject(int width, int height) {
     super();
     this.width = width;
     this.height = height;
@@ -32,7 +31,7 @@ public abstract class FlyObject {
 
 
   // for Hero , bullet , sky
-  public FlyObject(int x, int y, int width, int height) {
+  FlyObject(int x, int y, int width, int height) {
     super();
     this.width = width;
     this.height = height;
@@ -40,35 +39,7 @@ public abstract class FlyObject {
     this.y = y;
   }
 
-  public abstract void step();
-
-  // get state
-  public boolean isLife() {
-    return state == LIFE;
-  }
-
-  public boolean isDead() {
-    return state == DEAD;
-  }
-
-  public boolean isRemove() {
-    return state == REMOVE;
-  }
-
-  // add object picture to panel
-  public void paintObject(Graphics g) {
-    g.drawImage(getImage(), x, y, null);
-  }
-
-  public void outOfBounds() {
-    // if it's true ,that is out of the bounds
-    if (y > World.HEIGHT || y < -height)
-      state = REMOVE;
-  }
-
-  public abstract BufferedImage getImage();
-
-  public static BufferedImage loadImage(String fileName) {// the method to load pictures
+  static BufferedImage loadImage(String fileName) {// the method to load pictures
     BufferedImage img;
     try {
       img = ImageIO.read(FlyObject.class.getResource(fileName)); // load files
@@ -79,7 +50,40 @@ public abstract class FlyObject {
     }
   }
 
-  public boolean hit(FlyObject other) {
+  public abstract void step();
+
+  static int getREMOVE() {
+    return REMOVE;
+  }
+
+  // get state
+  boolean isLife() {
+    return state == LIFE;
+  }
+
+  boolean isDead() {
+    return state == DEAD;
+  }
+
+  boolean isNotRemove() {
+    return state != REMOVE;
+  }
+
+  // add object picture to panel
+  public void paintObject(Graphics g) {
+    g.drawImage(getImage(), x, y, null);
+  }
+
+  void outOfBounds() {
+    // if it's true ,that is out of the bounds
+    if (y > World.HEIGHT || y < -height) {
+      state = REMOVE;
+    }
+  }
+
+  public abstract BufferedImage getImage();
+
+  boolean hit(FlyObject other) {
     int x1 = this.x - other.width;
     int x2 = this.x + this.width;
     int y1 = this.y - other.height;
@@ -90,8 +94,9 @@ public abstract class FlyObject {
       }
       this.state = DEAD;
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
 }

@@ -12,7 +12,7 @@ public class BigPlane extends FlyObject implements EnemyScore {
   }
   private int speed;
 
-  public BigPlane() {
+  BigPlane() {
     super(69, 99);
     speed = 2;
   }
@@ -28,7 +28,7 @@ public class BigPlane extends FlyObject implements EnemyScore {
       return images[0];
     } else if (isDead()) {
       if (index == images.length - 1) {
-        this.state = REMOVE;
+        this.state = getREMOVE();
       }
       return images[index++];
     } else {

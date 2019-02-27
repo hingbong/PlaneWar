@@ -3,20 +3,23 @@ package io.github.hingbong.shoot;
 import java.awt.image.BufferedImage;
 
 public class Bee extends FlyObject implements Reward {
+
+  static final int LIFE = 0;
+  static final int DOUBLE_FIRE = 1;
   private static BufferedImage[] images;// image type array
+
   static {
     images = new BufferedImage[5];
     for (int i = 0; i < images.length; i++) {
       images[i] = loadImage("res/bee" + i + ".png");
     }
   }
-  static final int LIFE = 0;
-  static final int DOUBLE_FIRE = 1;
+
   private int xSpeed;
   private int ySpeed;
   private int rewardType;
 
-  public Bee() {
+  Bee() {
     super(60, 50);
     xSpeed = 1;
     ySpeed = 2;
@@ -38,7 +41,7 @@ public class Bee extends FlyObject implements Reward {
       return images[0];
     } else if (isDead()) {
       if (index == images.length - 1) {
-        this.state = REMOVE;
+        this.state = getREMOVE();
       }
       return images[index++];
     } else {
