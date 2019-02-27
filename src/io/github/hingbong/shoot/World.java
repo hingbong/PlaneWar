@@ -1,6 +1,7 @@
 package io.github.hingbong.shoot;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -244,31 +245,37 @@ public class World extends JPanel implements MouseMotionListener, MouseListener 
 
   @Override
   public void paint(Graphics g) {
-    if (state == START) {
-      g.clearRect(0, 0, WIDTH, HEIGHT);
-      g.drawImage(start, 40, 99, null);
+    switch (state) {
+      case START:
+        g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.drawImage(start, 40, 99, null);
+        break;
+      case RUNNING:
+        g.clearRect(0, 0, WIDTH, HEIGHT);
+        Sky.sky.paintObject(g);
+        for (FlyObject f : enemies) {
+          f.paintObject(g);
+        }
+        for (Bullet b : bullet) {
+          b.paintObject(g);
+        }
+        Hero.hero.paintObject(g);
+        g.setFont(new Font(null, Font.PLAIN, 15));
+        g.drawString("SCORE:" + score, 50, 30);
+        g.setFont(new Font(null, Font.PLAIN, 15));
+        g.drawString("LIFE:" + Hero.hero.getLife(), 50, 50);
+        break;
+      case PAUSE:
+        g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.drawImage(pause, 40, 99, null);
+        break;
+      case GAME_OVER:
+        g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.setFont(new Font(null, Font.BOLD, 30));
+        g.drawString("FINAL SCORE:" + score, 140, 300);
+        g.drawImage(gameOver, 40, 99, null);
+        break;
     }
-    if (state == RUNNING) {
-      g.clearRect(0, 0, WIDTH, HEIGHT);
-      Sky.sky.paintObject(g);
-      for (FlyObject f : enemies) {
-        f.paintObject(g);
-      }
-      for (Bullet b : bullet) {
-        b.paintObject(g);
-      }
-      Hero.hero.paintObject(g);
-      g.drawString("SCORE:" + score, 50, 30);
-      g.drawString("LIFE:" + Hero.hero.getLife(), 50, 50);
-    }
-    if (state == PAUSE) {
-      g.clearRect(0, 0, WIDTH, HEIGHT);
-      g.drawImage(pause, 40, 99, null);
-    }
-    if (state == GAME_OVER) {
-      g.clearRect(0, 0, WIDTH, HEIGHT);
-      g.drawImage(gameOver, 40, 99, null);
-    }
-  }
 
+  }
 }
