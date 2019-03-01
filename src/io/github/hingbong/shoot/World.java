@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class World extends JPanel implements MouseMotionListener, MouseListener {
+class World extends JPanel implements MouseMotionListener, MouseListener {
 
   static final int WIDTH = 480;
   static final int HEIGHT = 852;

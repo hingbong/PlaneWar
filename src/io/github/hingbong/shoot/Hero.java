@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 public class Hero extends FlyObject {
 
-  static Hero hero = new Hero();
   private static final BufferedImage[] images;// image type array
+  static final Hero hero = new Hero();
 
   static {
     images = new BufferedImage[2];
@@ -69,7 +69,12 @@ public class Hero extends FlyObject {
   }
 
   void initHero() {
-    hero = new Hero();
+    x = World.WIDTH / 2 - 97 / 2;
+    y = World.HEIGHT - 200;
+    width = 97;
+    height = 124;
+    life = 3;
+    doubleFireClear();
   }
 }
 

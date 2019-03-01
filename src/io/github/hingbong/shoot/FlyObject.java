@@ -16,8 +16,8 @@ abstract class FlyObject {
   int state = LIFE;
   int x;
   int y;
-  final int width;
-  final int height;
+  int width;
+  int height;
   int index = 0;
 
   // for airplane,bigplane and bee

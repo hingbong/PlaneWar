@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 
 public class Sky extends FlyObject {
 
-  static Sky sky = new Sky();
   private static final BufferedImage image;
+  static final Sky sky = new Sky();
 
   static {
     image = loadImage("res/background.png");
@@ -45,6 +45,11 @@ public class Sky extends FlyObject {
   }
 
   void initSky() {
-    sky = new Sky();
+    x = 0;
+    y = 0;
+    width = World.WIDTH;
+    height = World.HEIGHT;
+    y1 = -height;
+    speed = 1;
   }
 }
