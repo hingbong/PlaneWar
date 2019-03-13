@@ -13,7 +13,6 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 class World extends JPanel implements MouseMotionListener, MouseListener {
 
   static final int WIDTH = 480;
@@ -26,6 +25,8 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   private static final BufferedImage start;
   private static final BufferedImage pause;
   private static final BufferedImage gameOver;
+  // the unit in the world
+  private final static World world = new World();
 
   static {
     start = FlyObject.loadImage("res/start.png");
@@ -33,7 +34,6 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
     gameOver = FlyObject.loadImage("res/gameover.png");
   }
 
-  // the unit in the world
   private final JFrame frame = new JFrame("Shoot Game");// initialize the window
   private FlyObject[] enemies = new FlyObject[0];
   private Bullet[] bullet = new Bullet[0];
@@ -48,14 +48,13 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   }
 
   public static void main(String[] args) {
-    World w = new World();// run start method in main method
-    w.frame.add(w);// add world to window
-    w.start();
-    w.frame.setSize(WIDTH, HEIGHT);// set the window size
-    w.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
-    w.frame.setLocationRelativeTo(null);// window initialized location
-    w.frame.setVisible(true);// display the window
-    w.frame.setBackground(Color.white);
+    world.frame.add(world);// add world to window
+    world.start();
+    world.frame.setSize(WIDTH, HEIGHT);// set the window size
+    world.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
+    world.frame.setLocationRelativeTo(null);// window initialized location
+    world.frame.setVisible(true);// display the window
+    world.frame.setBackground(Color.white);
   }
 
   private void checkRunningAction() {
@@ -225,7 +224,6 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
     // set interval
     int interval = 10;// the bigger value, the slower speed
     TimerTask task = new TimerTask() {
-
       @Override
       public void run() {
         if (state == RUNNING) {
