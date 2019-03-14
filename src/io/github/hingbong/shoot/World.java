@@ -7,9 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -35,8 +36,8 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   }
 
   private final JFrame frame = new JFrame("Shoot Game");// initialize the window
-  private FlyObject[] enemies = new FlyObject[0];
-  private Bullet[] bullet = new Bullet[0];
+  private final ConcurrentLinkedDeque<Enemy> enemies = new ConcurrentLinkedDeque<>();
+  private final ConcurrentLinkedDeque<Bullet> bullet = new ConcurrentLinkedDeque<>();
   private int enterIndex = 0;
   private int shootIndex = 0;
   private int score = 0;
@@ -66,7 +67,7 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   }
 
   // generate enemy
-  private FlyObject newEnemy() {
+  private Enemy newEnemy() {
     int number = (int) (Math.random() * 100);
     if (number < 20) {
       return new Bee();
@@ -80,28 +81,26 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   private void enterAction() {
     enterIndex++;
     if (enterIndex % 40 == 0) {
-      FlyObject enemy = newEnemy();
-      enemies = Arrays.copyOf(enemies, enemies.length + 1);
-      enemies[enemies.length - 1] = enemy;
+      Enemy enemy = newEnemy();
+      enemies.offer(enemy);
     }
   }
 
   private void shootAction() {
     shootIndex++;
-    if (shootIndex % 40 == 0) {
-      Bullet[] bs = Hero.hero.shoot();
-      bullet = Arrays.copyOf(bullet, bullet.length + bs.length);
-      System.arraycopy(bs, 0, bullet, bullet.length - bs.length, bs.length);
+    if (shootIndex % 55 == 0) {
+      ConcurrentLinkedDeque<Bullet> bs = Hero.hero.shoot();
+      bullet.addAll(bs);
     }
   }
 
   private void stepAction() {
     Sky.sky.step();
-    for (FlyObject f : enemies) {
-      f.step();
+    for (Enemy enemy : enemies) {
+      enemy.step();
     }
-    for (Bullet b : bullet) {
-      b.step();
+    for (Bullet value : bullet) {
+      value.step();
     }
   }
 
@@ -138,8 +137,8 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
         Hero.hero.initHero();
         Hero.hero.doubleFireClear();
         Sky.sky.initSky();
-        enemies = new FlyObject[0];
-        bullet = new Bullet[0];
+        enemies.clear();
+        bullet.clear();
         state = START;
         break;
     }
@@ -161,33 +160,29 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   }
 
   private void clearAction() {
-    int index = 0;// record in window enemies count and their index
-    FlyObject[] eList = new FlyObject[enemies.length];
-    for (FlyObject e : enemies) {
+    Iterator<Enemy> enemyIterator = enemies.iterator();
+    while (enemyIterator.hasNext()) {
+      Enemy e = enemyIterator.next();
       e.outOfBounds();
-      if (e.isNotRemove()) {
-        eList[index] = e;
-        index++;
+      if (e.isRemove()) {
+        enemyIterator.remove();
       }
     }
-    enemies = Arrays.copyOf(eList, index);
-    index = 0;
-    Bullet[] bList = new Bullet[bullet.length];
-    for (Bullet b : bullet) {
-      b.outOfBounds();
-      if (b.isNotRemove()) {
-        bList[index] = b;
-        index++;
-      }
-    }
-    bullet = Arrays.copyOf(bList, index);
 
+    Iterator<Bullet> bulletIterator = bullet.iterator();
+    while (enemyIterator.hasNext()) {
+      Bullet b = bulletIterator.next();
+      b.outOfBounds();
+      if (b.isRemove()) {
+        bulletIterator.remove();
+      }
+    }
   }
 
   private void hitBulletAction() {
     clearAction();
     for (Bullet b : bullet) {
-      for (FlyObject e : enemies) {
+      for (Enemy e : enemies) {
         if (e.hit(b) && e.isDead()) {
           if (e instanceof Bee) {
             switch (((Bee) e).getRewardType()) {
@@ -209,7 +204,7 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
 
   private void hitHeroAction() {
     clearAction();
-    for (FlyObject e : enemies) {
+    for (Enemy e : enemies) {
       if (e.hit(Hero.hero) && e.index == 4) {
         Hero.hero.doubleFireClear();
         Hero.hero.minusLife();
@@ -251,11 +246,11 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
       case RUNNING:
         g.clearRect(0, 0, WIDTH, HEIGHT);
         Sky.sky.paintObject(g);
-        for (FlyObject f : enemies) {
-          f.paintObject(g);
+        for (Enemy enemy : enemies) {
+          enemy.paintObject(g);
         }
-        for (Bullet b : bullet) {
-          b.paintObject(g);
+        for (Bullet value : bullet) {
+          value.paintObject(g);
         }
         Hero.hero.paintObject(g);
         g.setFont(new Font(null, Font.PLAIN, 15));
@@ -274,6 +269,5 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
         g.drawImage(gameOver, 40, 99, null);
         break;
     }
-
   }
 }

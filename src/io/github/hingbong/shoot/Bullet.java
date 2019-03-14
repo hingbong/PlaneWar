@@ -17,8 +17,7 @@ public class Bullet extends FlyObject {
     speed = 2;
   }
 
-  @Override
-  public void step() {
+  void step() {
     y -= speed;
   }
 

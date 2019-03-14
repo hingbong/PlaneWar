@@ -50,8 +50,6 @@ abstract class FlyObject {
     }
   }
 
-  public abstract void step();
-
   static int getREMOVE() {
     return REMOVE;
   }
@@ -65,8 +63,8 @@ abstract class FlyObject {
     return state == DEAD;
   }
 
-  boolean isNotRemove() {
-    return state != REMOVE;
+  boolean isRemove() {
+    return state == REMOVE;
   }
 
   // add object picture to panel

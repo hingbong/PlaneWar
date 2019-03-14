@@ -2,7 +2,7 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public class Enemy extends FlyObject {
+public abstract class Enemy extends FlyObject {
 
   BufferedImage[] images;// image type array
 
@@ -10,10 +10,7 @@ public class Enemy extends FlyObject {
     super(width, height);
   }
 
-  @Override
-  public void step() {
-
-  }
+  abstract void step();
 
   @Override
   public BufferedImage getImage() {

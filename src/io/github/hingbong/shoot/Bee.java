@@ -2,7 +2,7 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public class Bee extends Enemy {
+class Bee extends Enemy {
 
   static final int LIFE = 0;
   static final int DOUBLE_FIRE = 1;

@@ -1,11 +1,12 @@
 package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Hero extends FlyObject {
 
-  private static final BufferedImage[] images;// image type array
   static final Hero hero = new Hero();
+  private static final BufferedImage[] images;// image type array
 
   static {
     images = new BufferedImage[2];
@@ -24,25 +25,21 @@ public class Hero extends FlyObject {
   }
 
   @Override
-  public void step() {
-  }
-
-  @Override
   public BufferedImage getImage() {
     return images[index++ % images.length];
   }
 
-  public Bullet[] shoot() {
+  public ConcurrentLinkedDeque<Bullet> shoot() {
     int x = 16;
     int y = 14;
     if (doubleFire == 0) {
-      Bullet[] bs = new Bullet[1];
-      bs[0] = new Bullet(this.x + x * 3 - 3, this.y - y);
+      ConcurrentLinkedDeque<Bullet> bs = new ConcurrentLinkedDeque<>();
+      bs.offer(new Bullet(this.x + x * 3 - 3, this.y - y));
       return bs;
     } else {
-      Bullet[] bs = new Bullet[2];
-      bs[0] = new Bullet(this.x + x - 3, this.y + y * 2);
-      bs[1] = new Bullet(this.x + x * 5 - 3, this.y + y * 2);
+      ConcurrentLinkedDeque<Bullet> bs = new ConcurrentLinkedDeque<>();
+      bs.offer(new Bullet(this.x + x - 3, this.y + y * 2));
+      bs.offer(new Bullet(this.x + x * 5 - 3, this.y + y * 2));
       doubleFire--;
       return bs;
     }

@@ -21,8 +21,7 @@ public class Sky extends FlyObject {
     speed = 1;
   }
 
-  @Override
-  public void step() {
+  void step() {
     y += speed;
     y1 += speed;
     if (y >= World.HEIGHT) {
