@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.Timer;
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-class World extends JPanel implements MouseMotionListener, MouseListener {
+class World extends JPanel {
 
   static final int WIDTH = 480;
   static final int HEIGHT = 852;
@@ -23,16 +23,17 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   private static final int RUNNING = 1;
   private static final int PAUSE = 2;
   private static final int GAME_OVER = 3;
-  private static final BufferedImage start;
-  private static final BufferedImage pause;
-  private static final BufferedImage gameOver;
-  // the unit in the world
-  private final static World world = new World();
+  private static final BufferedImage START_IMAGE;
+  private static final BufferedImage PAUSE_IMAGE;
+  private static final BufferedImage GAMEOVER_IMAGE;
+  // the unit in the WORLD
+  private final static World WORLD = new World();
+  private static int state = START;
 
   static {
-    start = FlyObject.loadImage("res/start.png");
-    pause = FlyObject.loadImage("res/pause.png");
-    gameOver = FlyObject.loadImage("res/gameover.png");
+    START_IMAGE = FlyObject.loadImage("res/start.png");
+    PAUSE_IMAGE = FlyObject.loadImage("res/pause.png");
+    GAMEOVER_IMAGE = FlyObject.loadImage("res/gameover.png");
   }
 
   private final JFrame frame = new JFrame("Shoot Game");// initialize the window
@@ -41,21 +42,73 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   private int enterIndex = 0;
   private int shootIndex = 0;
   private int score = 0;
-  private int state = START;
 
   private World() {
-    this.addMouseListener(this);
-    this.addMouseMotionListener(this);
+    MouseListener mouseListener = new MouseListener() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        switch (state) {
+          case START:
+            state = RUNNING;
+            break;
+          case GAME_OVER:
+            score = 0;
+            Hero.hero.initHero();
+            Hero.hero.doubleFireClear();
+            Sky.sky.initSky();
+            enemies.clear();
+            bullet.clear();
+            state = START;
+            break;
+        }
+
+      }
+
+      @Override
+      public void mouseExited(MouseEvent e) {
+        if (state == RUNNING) {
+          state = PAUSE;
+        }
+      }
+
+      @Override
+      public void mouseEntered(MouseEvent e) {
+        if (state == PAUSE) {
+          state = RUNNING;
+        }
+      }
+    };
+    MouseMotionAdapter mouseMotionAdapter = new MouseMotionAdapter() {
+      @Override
+      public void mouseMoved(MouseEvent e) {
+        if (state == RUNNING) {
+          Hero.hero.x = e.getX() - Hero.hero.width / 2;
+          Hero.hero.y = e.getY() - Hero.hero.height / 2;
+        }
+      }
+    };
+    addMouseListener(mouseListener);
+    addMouseMotionListener(mouseMotionAdapter);
   }
 
   public static void main(String[] args) {
-    world.frame.add(world);// add world to window
-    world.start();
-    world.frame.setSize(WIDTH, HEIGHT);// set the window size
-    world.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
-    world.frame.setLocationRelativeTo(null);// window initialized location
-    world.frame.setVisible(true);// display the window
-    world.frame.setBackground(Color.white);
+    WORLD.frame.add(WORLD);// add WORLD to window
+    WORLD.start();
+    WORLD.frame.setSize(WIDTH, HEIGHT);// set the window size
+    WORLD.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// set the (x)close function
+    WORLD.frame.setLocationRelativeTo(null);// window initialized location
+    WORLD.frame.setVisible(true);// display the window
+    WORLD.frame.setBackground(Color.white);
   }
 
   private void checkRunningAction() {
@@ -104,60 +157,6 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
     }
   }
 
-  @Override
-  public void mousePressed(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseDragged(MouseEvent e) {
-  }
-
-  @Override
-  public void mouseMoved(MouseEvent e) {
-    if (state == RUNNING) {
-      Hero.hero.x = e.getX() - Hero.hero.width / 2;
-      Hero.hero.y = e.getY() - Hero.hero.height / 2;
-    }
-  }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    switch (state) {
-      case START:
-        state = RUNNING;
-        break;
-      case GAME_OVER:
-        score = 0;
-        Hero.hero.initHero();
-        Hero.hero.doubleFireClear();
-        Sky.sky.initSky();
-        enemies.clear();
-        bullet.clear();
-        state = START;
-        break;
-    }
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-    if (state == RUNNING) {
-      state = PAUSE;
-    }
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    if (state == PAUSE) {
-      state = RUNNING;
-    }
-  }
 
   private void clearAction() {
     Iterator<Enemy> enemyIterator = enemies.iterator();
@@ -183,7 +182,7 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
     clearAction();
     for (Bullet b : bullet) {
       for (Enemy e : enemies) {
-        if (e.hit(b) && e.isDead()) {
+        if (e.hit(b) && e.isDead() && e.getIndex() == 1) {
           if (e instanceof Bee) {
             switch (((Bee) e).getRewardType()) {
               case Bee.LIFE:
@@ -205,7 +204,7 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
   private void hitHeroAction() {
     clearAction();
     for (Enemy e : enemies) {
-      if (e.hit(Hero.hero) && e.index == 4) {
+      if (e.hit(Hero.hero) && e.getIndex() == 4) {
         Hero.hero.doubleFireClear();
         Hero.hero.minusLife();
         break;
@@ -241,7 +240,7 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
     switch (state) {
       case START:
         g.clearRect(0, 0, WIDTH, HEIGHT);
-        g.drawImage(start, 40, 99, null);
+        g.drawImage(START_IMAGE, 40, 99, null);
         break;
       case RUNNING:
         g.clearRect(0, 0, WIDTH, HEIGHT);
@@ -260,13 +259,13 @@ class World extends JPanel implements MouseMotionListener, MouseListener {
         break;
       case PAUSE:
         g.clearRect(0, 0, WIDTH, HEIGHT);
-        g.drawImage(pause, 40, 99, null);
+        g.drawImage(PAUSE_IMAGE, 40, 99, null);
         break;
       case GAME_OVER:
         g.clearRect(0, 0, WIDTH, HEIGHT);
         g.setFont(new Font(null, Font.BOLD, 30));
         g.drawString("FINAL SCORE:" + score, 140, 300);
-        g.drawImage(gameOver, 40, 99, null);
+        g.drawImage(GAMEOVER_IMAGE, 40, 99, null);
         break;
     }
   }

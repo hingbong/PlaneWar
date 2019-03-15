@@ -18,7 +18,6 @@ abstract class FlyObject {
   int y;
   int width;
   int height;
-  int index = 0;
 
   // for airplane,bigplane and bee
   FlyObject(int width, int height) {

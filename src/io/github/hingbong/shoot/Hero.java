@@ -15,6 +15,7 @@ public class Hero extends FlyObject {
     }
   }
 
+  private int index;
   private int life;
   private int doubleFire;
 

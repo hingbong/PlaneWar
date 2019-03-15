@@ -5,9 +5,14 @@ import java.awt.image.BufferedImage;
 public abstract class Enemy extends FlyObject {
 
   BufferedImage[] images;// image type array
+  private int index = 0;
 
   Enemy(int width, int height) {
     super(width, height);
+  }
+
+  int getIndex() {
+    return index;
   }
 
   abstract void step();
