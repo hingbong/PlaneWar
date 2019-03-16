@@ -66,16 +66,17 @@ abstract class FlyObject {
     return state == REMOVE;
   }
 
+  void setRemove() {
+    state = REMOVE;
+  }
+
   // add object picture to panel
   public void paintObject(Graphics g) {
     g.drawImage(getImage(), x, y, null);
   }
 
-  void outOfBounds() {
-    // if it's true ,that is out of the bounds
-    if (y > World.HEIGHT || y < -height) {
-      state = REMOVE;
-    }
+  boolean outOfBounds() {
+    return y > World.HEIGHT || y < -height;
   }
 
   protected abstract BufferedImage getImage();
@@ -86,10 +87,7 @@ abstract class FlyObject {
     int y1 = this.y - other.height;
     int y2 = this.y + this.height;
     if (other.x < x2 && other.x > x1 && other.y < y2 && other.y > y1) {
-      if (other instanceof Bullet) {
-        other.state = REMOVE;
-      }
-      this.state = DEAD;
+      this.state = other.state = DEAD;
       return true;
     } else {
       return false;

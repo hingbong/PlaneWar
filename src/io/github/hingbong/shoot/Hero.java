@@ -1,7 +1,7 @@
 package io.github.hingbong.shoot;
 
+import io.github.hingbong.shoot.util.SimpleConcurrentHashSet;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Hero extends FlyObject {
 
@@ -15,6 +15,7 @@ public class Hero extends FlyObject {
     }
   }
 
+  private final SimpleConcurrentHashSet<Bullet> bs = new SimpleConcurrentHashSet<>(3);
   private int index;
   private int life;
   private int doubleFire;
@@ -30,17 +31,16 @@ public class Hero extends FlyObject {
     return images[index++ % images.length];
   }
 
-  public ConcurrentLinkedDeque<Bullet> shoot() {
+  public SimpleConcurrentHashSet<Bullet> shoot() {
+    bs.clear();
     int x = 16;
     int y = 14;
     if (doubleFire == 0) {
-      ConcurrentLinkedDeque<Bullet> bs = new ConcurrentLinkedDeque<>();
-      bs.offer(new Bullet(this.x + x * 3 - 3, this.y - y));
+      bs.add(new Bullet(this.x + x * 3 - 3, this.y - y));
       return bs;
     } else {
-      ConcurrentLinkedDeque<Bullet> bs = new ConcurrentLinkedDeque<>();
-      bs.offer(new Bullet(this.x + x - 3, this.y + y * 2));
-      bs.offer(new Bullet(this.x + x * 5 - 3, this.y + y * 2));
+      bs.add(new Bullet(this.x + x - 3, this.y + y * 2));
+      bs.add(new Bullet(this.x + x * 5 - 3, this.y + y * 2));
       doubleFire--;
       return bs;
     }

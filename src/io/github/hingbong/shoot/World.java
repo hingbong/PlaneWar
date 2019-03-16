@@ -1,5 +1,6 @@
 package io.github.hingbong.shoot;
 
+import io.github.hingbong.shoot.util.SimpleConcurrentHashSet;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -7,10 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -37,8 +36,8 @@ class World extends JPanel {
   }
 
   private final JFrame frame = new JFrame("Shoot Game");// initialize the window
-  private final ConcurrentLinkedDeque<Enemy> enemies = new ConcurrentLinkedDeque<>();
-  private final ConcurrentLinkedDeque<Bullet> bullet = new ConcurrentLinkedDeque<>();
+  private final SimpleConcurrentHashSet<Enemy> enemies = new SimpleConcurrentHashSet<>(20);
+  private final SimpleConcurrentHashSet<Bullet> bullet = new SimpleConcurrentHashSet<>(20);
   private int enterIndex = 0;
   private int shootIndex = 0;
   private int score = 0;
@@ -135,14 +134,14 @@ class World extends JPanel {
     enterIndex++;
     if (enterIndex % 40 == 0) {
       Enemy enemy = newEnemy();
-      enemies.offer(enemy);
+      enemies.add(enemy);
     }
   }
 
   private void shootAction() {
     shootIndex++;
     if (shootIndex % 55 == 0) {
-      ConcurrentLinkedDeque<Bullet> bs = Hero.hero.shoot();
+      SimpleConcurrentHashSet<Bullet> bs = Hero.hero.shoot();
       bullet.addAll(bs);
     }
   }
@@ -158,28 +157,15 @@ class World extends JPanel {
   }
 
 
-  private void clearAction() {
-    Iterator<Enemy> enemyIterator = enemies.iterator();
-    while (enemyIterator.hasNext()) {
-      Enemy e = enemyIterator.next();
-      e.outOfBounds();
-      if (e.isRemove()) {
-        enemyIterator.remove();
-      }
-    }
+  private void enemyClearAction() {
+    enemies.removeIf(e -> e.outOfBounds() || e.isRemove());
+  }
 
-    Iterator<Bullet> bulletIterator = bullet.iterator();
-    while (enemyIterator.hasNext()) {
-      Bullet b = bulletIterator.next();
-      b.outOfBounds();
-      if (b.isRemove()) {
-        bulletIterator.remove();
-      }
-    }
+  private void bulletClearAction() {
+    bullet.removeIf(b -> b.outOfBounds() || b.isRemove());
   }
 
   private void hitBulletAction() {
-    clearAction();
     for (Bullet b : bullet) {
       for (Enemy e : enemies) {
         if (e.hit(b) && e.isDead() && e.getIndex() == 1) {
@@ -195,6 +181,7 @@ class World extends JPanel {
           } else {
             score += ((EnemyScore) e).getScore();
           }
+          b.setRemove();
           break;
         }
       }
@@ -202,7 +189,6 @@ class World extends JPanel {
   }
 
   private void hitHeroAction() {
-    clearAction();
     for (Enemy e : enemies) {
       if (e.hit(Hero.hero) && e.getIndex() == 4) {
         Hero.hero.doubleFireClear();
@@ -224,10 +210,11 @@ class World extends JPanel {
           enterAction();
           shootAction();
           stepAction();
-          clearAction();
+          enemyClearAction();
           hitBulletAction();
           hitHeroAction();
           checkRunningAction();
+          bulletClearAction();
         }
         repaint();
       }
