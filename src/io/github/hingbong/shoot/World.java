@@ -5,13 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
 
 class World extends JPanel {
 
@@ -43,17 +43,7 @@ class World extends JPanel {
   private int score = 0;
 
   private World() {
-    MouseListener mouseListener = new MouseListener() {
-      @Override
-      public void mousePressed(MouseEvent e) {
-
-      }
-
-      @Override
-      public void mouseReleased(MouseEvent e) {
-
-      }
-
+    MouseInputAdapter mouseListener = new MouseInputAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         switch (state) {
@@ -70,7 +60,6 @@ class World extends JPanel {
             state = START;
             break;
         }
-
       }
 
       @Override
