@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class Hero extends FlyObject {
 
-  static final Hero hero = new Hero();
+  private static final Hero hero = new Hero();
   private static final BufferedImage[] images;// image type array
 
   static {
@@ -24,6 +24,10 @@ public class Hero extends FlyObject {
     super(World.WIDTH / 2 - 97 / 2, World.HEIGHT - 200, 97, 124);
     life = 3;// at the beginning of the game,there are 3 lives
     doubleFire = 0;// at the beginning of the game,there is single bullet
+  }
+
+  static Hero getHero() {
+    return hero;
   }
 
   @Override

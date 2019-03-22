@@ -36,6 +36,8 @@ class World extends JPanel {
   }
 
   private final JFrame frame = new JFrame("Shoot Game");// initialize the window
+  private Sky sky = Sky.getSky();
+  private Hero hero = Hero.getHero();
   private final SimpleConcurrentHashSet<Enemy> enemies = new SimpleConcurrentHashSet<>(20);
   private final SimpleConcurrentHashSet<Bullet> bullet = new SimpleConcurrentHashSet<>(20);
   private int enterIndex = 0;
@@ -52,9 +54,9 @@ class World extends JPanel {
             break;
           case GAME_OVER:
             score = 0;
-            Hero.hero.initHero();
-            Hero.hero.doubleFireClear();
-            Sky.sky.initSky();
+            hero.initHero();
+            hero.doubleFireClear();
+            sky.initSky();
             enemies.clear();
             bullet.clear();
             state = START;
@@ -80,8 +82,8 @@ class World extends JPanel {
       @Override
       public void mouseMoved(MouseEvent e) {
         if (state == RUNNING) {
-          Hero.hero.x = e.getX() - Hero.hero.width / 2;
-          Hero.hero.y = e.getY() - Hero.hero.height / 2;
+          hero.x = e.getX() - hero.width / 2;
+          hero.y = e.getY() - hero.height / 2;
         }
       }
     };
@@ -101,7 +103,7 @@ class World extends JPanel {
 
   private void checkRunningAction() {
     if (state == RUNNING) {
-      if (Hero.hero.getLife() <= 0) {
+      if (hero.getLife() <= 0) {
         state = GAME_OVER;
       }
     }
@@ -130,13 +132,13 @@ class World extends JPanel {
   private void shootAction() {
     shootIndex++;
     if (shootIndex % 55 == 0) {
-      SimpleConcurrentHashSet<Bullet> bs = Hero.hero.shoot();
+      SimpleConcurrentHashSet<Bullet> bs = hero.shoot();
       bullet.addAll(bs);
     }
   }
 
   private void stepAction() {
-    Sky.sky.step();
+    sky.step();
     for (Enemy enemy : enemies) {
       enemy.step();
     }
@@ -161,10 +163,10 @@ class World extends JPanel {
           if (e instanceof Bee) {
             switch (((Bee) e).getRewardType()) {
               case Bee.LIFE:
-                Hero.hero.addLife();
+                hero.addLife();
                 break;
               case Bee.DOUBLE_FIRE:
-                Hero.hero.addFire();
+                hero.addFire();
                 break;
             }
           } else {
@@ -179,9 +181,9 @@ class World extends JPanel {
 
   private void hitHeroAction() {
     for (Enemy e : enemies) {
-      if (e.hit(Hero.hero) && e.getIndex() == 4) {
-        Hero.hero.doubleFireClear();
-        Hero.hero.minusLife();
+      if (e.hit(hero) && e.getIndex() == 4) {
+        hero.doubleFireClear();
+        hero.minusLife();
         break;
       }
     }
@@ -220,18 +222,18 @@ class World extends JPanel {
         break;
       case RUNNING:
         g.clearRect(0, 0, WIDTH, HEIGHT);
-        Sky.sky.paintObject(g);
+        sky.paintObject(g);
         for (Enemy enemy : enemies) {
           enemy.paintObject(g);
         }
         for (Bullet value : bullet) {
           value.paintObject(g);
         }
-        Hero.hero.paintObject(g);
+        hero.paintObject(g);
         g.setFont(new Font(null, Font.PLAIN, 15));
         g.drawString("SCORE:" + score, 50, 30);
         g.setFont(new Font(null, Font.PLAIN, 15));
-        g.drawString("LIFE:" + Hero.hero.getLife(), 50, 50);
+        g.drawString("LIFE:" + hero.getLife(), 50, 50);
         break;
       case PAUSE:
         g.clearRect(0, 0, WIDTH, HEIGHT);
