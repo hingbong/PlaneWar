@@ -21,7 +21,7 @@ class Bee extends AbstractEnemy {
     super(60, 50);
     xSpeed = 1;
     ySpeed = 2;
-    rewardType = (int) (Math.random() * 2);
+    rewardType = World.RANDOM.nextInt(2);
   }
 
   @Override

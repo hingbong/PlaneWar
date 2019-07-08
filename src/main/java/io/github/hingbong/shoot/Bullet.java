@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 
 public class Bullet extends BaseFlyObject {
 
-  private static final BufferedImage image;
+  private static final BufferedImage IMAGE;
 
   static {
-    image = loadImage("bullet.png");
+    IMAGE = loadImage("bullet.png");
   }
 
   private int speed;
@@ -24,9 +24,9 @@ public class Bullet extends BaseFlyObject {
   @Override
   public BufferedImage getImage() {
     if (isLife()) {
-      return image;
+      return IMAGE;
     } else {
-      state = getREMOVE();
+      state = getRemove();
       return null;
     }
   }

@@ -6,13 +6,13 @@ import java.util.concurrent.ConcurrentHashMap.KeySetView;
 
 public class Hero extends BaseFlyObject {
 
-  private static final Hero hero = new Hero();
-  private static final BufferedImage[] images; // image type array
+  private static final Hero HERO = new Hero();
+  private static final BufferedImage[] IMAGES; // image type array
 
   static {
-    images = new BufferedImage[2];
-    for (int i = 0; i < images.length; i++) {
-      images[i] = loadImage("hero" + i + ".png");
+    IMAGES = new BufferedImage[2];
+    for (int i = 0; i < IMAGES.length; i++) {
+      IMAGES[i] = loadImage("HERO" + i + ".png");
     }
   }
 
@@ -28,12 +28,12 @@ public class Hero extends BaseFlyObject {
   }
 
   static Hero getHero() {
-    return hero;
+    return HERO;
   }
 
   @Override
   public BufferedImage getImage() {
-    return images[index++ % images.length];
+    return IMAGES[index++ % IMAGES.length];
   }
 
   public KeySetView<Bullet, Boolean> shoot() {

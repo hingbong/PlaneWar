@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 
 public class Sky extends BaseFlyObject {
 
-  private static final BufferedImage image;
-  private static final Sky sky = new Sky();
+  private static final BufferedImage IMAGE;
+  private static final Sky SKY = new Sky();
 
   static {
-    image = loadImage("background.png");
+    IMAGE = loadImage("background.png");
   }
 
   private int y1;// two pictures loop
@@ -22,7 +22,7 @@ public class Sky extends BaseFlyObject {
   }
 
   static Sky getSky() {
-    return sky;
+    return SKY;
   }
 
   void step() {
@@ -44,7 +44,7 @@ public class Sky extends BaseFlyObject {
 
   @Override
   protected BufferedImage getImage() {
-    return image;
+    return IMAGE;
   }
 
   void initSky() {

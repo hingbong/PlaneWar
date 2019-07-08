@@ -24,7 +24,7 @@ public abstract class AbstractEnemy extends BaseFlyObject {
       return images[0];
     } else if (isDead()) {
       if (index == images.length - 1) {
-        this.state = getREMOVE();
+        this.state = getRemove();
       }
       return images[index++];
     } else {

@@ -19,6 +19,8 @@ import javax.swing.event.MouseInputAdapter;
 
 class World extends JPanel {
 
+  static final Random RANDOM = new Random();
+
   static final int WIDTH = 480;
   static final int HEIGHT = 852;
 
@@ -34,7 +36,7 @@ class World extends JPanel {
    * the unit in the WORLD
    */
   private static final World WORLD = new World();
-  private static final Random RANDOM = new Random();
+
   private static int state = START;
 
   static {
@@ -154,12 +156,8 @@ class World extends JPanel {
 
   private void stepAction() {
     sky.step();
-    for (AbstractEnemy abstractEnemy : enemies) {
-      abstractEnemy.step();
-    }
-    for (Bullet value : bullet) {
-      value.step();
-    }
+    enemies.forEach(AbstractEnemy::step);
+    bullet.forEach(Bullet::step);
   }
 
   private void enemyClearAction() {

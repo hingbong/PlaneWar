@@ -3,6 +3,7 @@ package io.github.hingbong.shoot;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 
 abstract class BaseFlyObject {
@@ -41,7 +42,8 @@ abstract class BaseFlyObject {
     BufferedImage img;
     try {
       // load files
-      img = ImageIO.read(BaseFlyObject.class.getClassLoader().getResource(fileName));
+      img = ImageIO.read(
+          Objects.requireNonNull(BaseFlyObject.class.getClassLoader().getResource(fileName)));
       return img;
     } catch (IOException e) {
       e.printStackTrace();
@@ -49,7 +51,7 @@ abstract class BaseFlyObject {
     }
   }
 
-  static int getREMOVE() {
+  static int getRemove() {
     return REMOVE;
   }
 
