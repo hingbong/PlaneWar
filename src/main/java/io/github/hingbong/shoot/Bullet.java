@@ -2,12 +2,12 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public class Bullet extends FlyObject {
+public class Bullet extends BaseFlyObject {
 
   private static final BufferedImage image;
 
   static {
-    image = loadImage("res/bullet.png");
+    image = loadImage("bullet.png");
   }
 
   private int speed;
@@ -31,4 +31,13 @@ public class Bullet extends FlyObject {
     }
   }
 
+  @Override
+  public boolean equals(Object o) {
+    return super.equals(o);
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
 }

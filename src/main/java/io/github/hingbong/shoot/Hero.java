@@ -1,29 +1,30 @@
 package io.github.hingbong.shoot;
 
-import io.github.hingbong.shoot.util.SimpleConcurrentHashSet;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentHashMap.KeySetView;
 
-public class Hero extends FlyObject {
+public class Hero extends BaseFlyObject {
 
   private static final Hero hero = new Hero();
-  private static final BufferedImage[] images;// image type array
+  private static final BufferedImage[] images; // image type array
 
   static {
     images = new BufferedImage[2];
     for (int i = 0; i < images.length; i++) {
-      images[i] = loadImage("res/hero" + i + ".png");
+      images[i] = loadImage("hero" + i + ".png");
     }
   }
 
-  private final SimpleConcurrentHashSet<Bullet> bs = new SimpleConcurrentHashSet<>(3);
+  private final KeySetView<Bullet, Boolean> bs = ConcurrentHashMap.newKeySet(4);
   private int index;
   private int life;
   private int doubleFire;
 
   private Hero() {
     super(World.WIDTH / 2 - 97 / 2, World.HEIGHT - 200, 97, 124);
-    life = 3;// at the beginning of the game,there are 3 lives
-    doubleFire = 0;// at the beginning of the game,there is single bullet
+    life = 3; // at the beginning of the game,there are 3 lives
+    doubleFire = 0; // at the beginning of the game,there is single bullet
   }
 
   static Hero getHero() {
@@ -35,7 +36,7 @@ public class Hero extends FlyObject {
     return images[index++ % images.length];
   }
 
-  public SimpleConcurrentHashSet<Bullet> shoot() {
+  public KeySetView<Bullet, Boolean> shoot() {
     bs.clear();
     int x = 16;
     int y = 14;
@@ -79,4 +80,3 @@ public class Hero extends FlyObject {
     doubleFireClear();
   }
 }
-

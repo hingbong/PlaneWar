@@ -2,21 +2,20 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-class Bee extends Enemy {
+class Bee extends AbstractEnemy {
 
   static final int LIFE = 0;
   static final int DOUBLE_FIRE = 1;
+  private int xSpeed;
+  private int ySpeed;
+  private int rewardType;
 
   {
     images = new BufferedImage[5];
     for (int i = 0; i < images.length; i++) {
-      images[i] = loadImage("res/bee" + i + ".png");
+      images[i] = loadImage("bee" + i + ".png");
     }
   }
-
-  private int xSpeed;
-  private int ySpeed;
-  private int rewardType;
 
   Bee() {
     super(60, 50);

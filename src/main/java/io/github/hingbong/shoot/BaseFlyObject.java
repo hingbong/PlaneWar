@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-abstract class FlyObject {
+abstract class BaseFlyObject {
 
   // three state
   private static final int LIFE = 0;
@@ -20,7 +20,7 @@ abstract class FlyObject {
   int height;
 
   // for airplane,bigplane and bee
-  FlyObject(int width, int height) {
+  BaseFlyObject(int width, int height) {
     super();
     this.width = width;
     this.height = height;
@@ -28,9 +28,8 @@ abstract class FlyObject {
     x = (int) (Math.random() * (World.WIDTH - width + 1));
   }
 
-
   // for Hero , bullet , sky
-  FlyObject(int x, int y, int width, int height) {
+  BaseFlyObject(int x, int y, int width, int height) {
     super();
     this.width = width;
     this.height = height;
@@ -38,10 +37,11 @@ abstract class FlyObject {
     this.y = y;
   }
 
-  static BufferedImage loadImage(String fileName) {// the method to load pictures
+  static BufferedImage loadImage(String fileName) { // the method to load pictures
     BufferedImage img;
     try {
-      img = ImageIO.read(FlyObject.class.getResource(fileName)); // load files
+      // load files
+      img = ImageIO.read(BaseFlyObject.class.getClassLoader().getResource(fileName));
       return img;
     } catch (IOException e) {
       e.printStackTrace();
@@ -81,7 +81,7 @@ abstract class FlyObject {
 
   protected abstract BufferedImage getImage();
 
-  boolean hit(FlyObject other) {
+  boolean hit(BaseFlyObject other) {
     int x1 = this.x - other.width;
     int x2 = this.x + this.width;
     int y1 = this.y - other.height;
@@ -93,5 +93,4 @@ abstract class FlyObject {
       return false;
     }
   }
-
 }

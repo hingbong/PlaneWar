@@ -3,13 +3,13 @@ package io.github.hingbong.shoot;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Sky extends FlyObject {
+public class Sky extends BaseFlyObject {
 
   private static final BufferedImage image;
   private static final Sky sky = new Sky();
 
   static {
-    image = loadImage("res/background.png");
+    image = loadImage("background.png");
   }
 
   private int y1;// two pictures loop

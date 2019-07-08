@@ -2,12 +2,13 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Enemy extends FlyObject {
+public abstract class AbstractEnemy extends BaseFlyObject {
 
-  BufferedImage[] images;// image type array
+  // image type array
+  BufferedImage[] images;
   private int index = 0;
 
-  Enemy(int width, int height) {
+  AbstractEnemy(int width, int height) {
     super(width, height);
   }
 
@@ -29,5 +30,15 @@ public abstract class Enemy extends FlyObject {
     } else {
       return null;
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return super.equals(o);
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 }

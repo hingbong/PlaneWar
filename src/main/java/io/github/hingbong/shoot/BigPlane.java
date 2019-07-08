@@ -2,19 +2,19 @@ package io.github.hingbong.shoot;
 
 import java.awt.image.BufferedImage;
 
-public class AirPlane extends Enemy implements EnemyScore {
+public class BigPlane extends AbstractEnemy implements EnemyScore {
+
+  private int speed;
 
   {
     images = new BufferedImage[5];
     for (int i = 0; i < images.length; i++) {
-      images[i] = loadImage("res/airplane" + i + ".png");
+      images[i] = loadImage("bigplane" + i + ".png");
     }
   }
 
-  private int speed;
-
-  AirPlane() {
-    super(49, 36);
+  BigPlane() {
+    super(69, 99);
     speed = 2;
   }
 
@@ -26,7 +26,7 @@ public class AirPlane extends Enemy implements EnemyScore {
 
   @Override
   public int getScore() {
-    return 1;
+    return 3;
   }
 
 }
